@@ -1,6 +1,6 @@
 <?php
 
-namespace TempestTools\Doctrine\Utility;
+namespace TempestTools\Common\Doctrine\Utility;
 
 use Doctrine\ORM\EntityManager;
 
@@ -15,7 +15,7 @@ trait EmTrait
      * @param EntityManager $em
      * @return EmTrait
      */
-    public function setEm(EntityManager $em):EmTrait
+    public function setEm(EntityManager $em)
     {
         $this->em = $em;
         return $this;
@@ -24,7 +24,7 @@ trait EmTrait
     /**
      * @return EntityManager
      */
-    public function getEm(): EntityManager
+    public function getEm(): ?EntityManager
     {
         return $this->em;
     }
