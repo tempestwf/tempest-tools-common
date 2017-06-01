@@ -11,6 +11,7 @@ class ArrayHelper
 {
     use ErrorConstantsTrait;
 
+
     /**
      * @var array ERRORS
      * A constant that stores the errors that can be returned by the class
