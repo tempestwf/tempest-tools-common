@@ -175,7 +175,8 @@ class ArrayHelper
         /** @var array $extendsList */
         $extendsList = $source[static::EXTENDS_KEY];
 
-        for($n=0;$n<count($extendsList);$n++) {
+        /** @noinspection CallableInLoopTerminationConditionInspection */
+        for($n=0; $n<count($extendsList); $n++) {
             $extends = $extendsList[$n];
             $target = $this->parseStringPath($extends);
             if (isset($target[static::EXTENDS_KEY]) && is_array($target[static::EXTENDS_KEY]) && count($target[static::EXTENDS_KEY]) > 0) {
