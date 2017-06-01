@@ -11,4 +11,17 @@ interface Extractable
      */
     public function extractValues() : array;
 
+    /**
+     * setter
+     * @param array $options
+     * @return Extractable
+     */
+    public function setExtractorOptions(array $options) : Extractable;
+
+    /**
+     * getter
+     * @return array
+     */
+    public function getExtractorOptions():array;
+
 }
