@@ -3,6 +3,7 @@
 namespace TempestTools\Common\Helper;
 
 use ArrayObject;
+use Closure;
 use TempestTools\Common\Utility\ErrorConstantsTrait;
 
 class ArrayHelper
@@ -21,6 +22,10 @@ class ArrayHelper
         'noExtendsKeyInArray'=>
             [
                 'message'=>'Error: array passed to parseInheritancePath does not have an "extends" key',
+            ],
+        'circularInheritanceDetected'=>
+            [
+                'message'=>'Error: Circular inheritance detected in array',
             ],
     ];
 
@@ -56,25 +61,133 @@ class ArrayHelper
      * @var string EXTENDS_KEY
      */
     const EXTENDS_KEY = 'extends';
+    /**
+     * The key used to list the path that was extended
+     * @var string EXTENDED_KEY
+     */
+    const EXTENDED_KEY = 'extended';
+    /**
+     * The character to put at the beginning of a string to trigger automatic parsing.
+     * @var string TRIGGER_STRING_PARSE
+     */
+    const TRIGGER_STRING_PARSE = '?';
 
-
-    public function parseInheritance(array $source):array{
-        $array = $this->getArray();
-
-        $extends = $this->parseInheritancePath($source);
-    }
-
-    public function parseInheritancePath(array $source){
-        if (!isset($source[static::EXTENDS_KEY])) {
-            throw new \RuntimeException(_($this->getErrorFromConstant('noExtendsKeyInArray')['message']));
+    /**
+     * Automatically detects what operations should be run on a value and then runs them.
+     * Remember to put ? at the strong of any string you want to be automatically handled by this method.
+     *
+     * @param $value
+     * @return array|ArrayObject|mixed|string
+     * @throws \RuntimeException
+     */
+    public function parse($value){
+        if ($value instanceof Closure) {
+            return $this->parseClosure($value);
         }
 
+        if (is_array($value)) {
+         return $this->parseInheritance($value);
+        }
 
-        /*$extends = $source[static::EXTENDS_KEY];
-        for($n=0;$n<count($extends)){
+        if (is_string($value) && $value[0] === static::TRIGGER_STRING_PARSE) {
+            $value = $this->trimFront($value);
+            if ($value[0] === static::PATH_SEPARATOR) {
+                return $this->parseStringPath($value);
+            }
 
-        }*/
+            return $this->parseTemplate($value);
+        }
 
+        return $value;
+
+    }
+
+    /**
+     * Parses a closure and passes it $this
+     * @param Closure $closure
+     * @return mixed
+     */
+    public function parseClosure(Closure $closure) {
+        return $closure($this);
+    }
+
+    /**
+     * Looks at an array that has an "extends" key.
+     * It calculates the full inheritance path by following the extends path set on the source that was passed,
+     * that leads through the extends paths stored on the array attached to this class.
+     * Once it has the full path of extends calculated, it starts using array_replace to apply the values from the parts of the array referenced in the extends path.
+     * It then removes the extends property from the source array and puts in instead a: extended property that lists the path that was used for extension.
+     *
+     * @param array $source
+     * @return array
+     * @throws \RuntimeException
+     */
+    public function parseInheritance(array $source):array{
+        $extends = $this->parseInheritancePath($source);
+        $origExtends = $extends;
+
+        while (count($extends)>0) {
+            $extend = array_pop($extends);
+            $target = $this->parseStringPath($extend);
+            array_replace($source, $target);
+        }
+        $source[static::EXTENDED_KEY] = $origExtends;
+        unset($source[static::EXTENDS_KEY]);
+        return $source;
+    }
+
+    /**
+     * Created the extends path used by parseInheritance. See that method for more details.
+     * Example:
+     * With an array like so:
+     * *[
+     *  'base'=> [
+     *	'extends'=>[]
+     *  ],
+     *  'one'=> [
+     *    'extends'=>[':base']
+     *  ],
+     *  'two'=> [
+     *    'extends'=>[':one']
+     *  ],
+     *  'three'=> [
+     *    'extends'=>[':two', ':four']
+     *  ],
+     *  'four'=> [
+     *	'extends'=>[]
+     *  ]
+     *]
+     * If you pass this method a source like so:
+     * [
+     *    'extends'=>['two', 'four']
+     *  ]
+     * You would get a result of:
+     * ["two", "one", "base", "four"]
+     * @param array $source
+     * @return array
+     * @throws \RuntimeException
+     */
+    public function parseInheritancePath(array $source):array{
+        if (!isset($source[static::EXTENDS_KEY])) {
+            throw new \RuntimeException($this->getErrorFromConstant('noExtendsKeyInArray')['message']);
+        }
+
+        /** @var array $extendsList */
+        $extendsList = $source[static::EXTENDS_KEY];
+
+        for($n=0;$n<count($extendsList);$n++) {
+            $extends = $extendsList[$n];
+            $target = $this->parseStringPath($extends);
+            if (isset($target[static::EXTENDS_KEY]) && is_array($target[static::EXTENDS_KEY]) && count($target[static::EXTENDS_KEY]) > 0) {
+                $targetExtends = $target[static::EXTENDS_KEY];
+                array_splice($extendsList,$n+1,0,$targetExtends);
+                if (count($extendsList) !== count(array_count_values($extendsList))) {
+                    throw new \RuntimeException($this->getErrorFromConstant('circularInheritanceDetected')['message']);
+                }
+            }
+        }
+
+        return $extendsList;
     }
 
     /**
@@ -94,6 +207,7 @@ class ArrayHelper
      * @throws \RuntimeException
      */
     public function parseTemplate(string $template):string{
+        $template = $this->trimFront($template);
         preg_match_all(static::PLACEHOLDER_REGEX, $template, $matches);
         $replacements =  [];
         $patterns = [];
@@ -122,8 +236,9 @@ class ArrayHelper
      * @returns ArrayObject|mixed
      */
     public function parseStringPath(string $path) {
+        $path = $this->trimFront($path);
         if ($path[0] !== static::PATH_SEPARATOR) {
-            throw new \RuntimeException(_($this->getErrorFromConstant('stringPathDoesNotStartWith')['message']));
+            throw new \RuntimeException($this->getErrorFromConstant('stringPathDoesNotStartWith')['message']);
         }
         $path = ltrim($path, static::PATH_SEPARATOR);
         $pathArray =  preg_split('/' . static::PATH_SEPARATOR . '/', $path);
@@ -153,12 +268,20 @@ class ArrayHelper
     }
 
     /**
+     * Trims the ? from the front of a a string
+     * @param string $value
+     * @return string
+     */
+    protected function trimFront(string $value):string {
+        return ltrim($value, static::TRIGGER_STRING_PARSE);
+    }
+
+    /**
      * @param ArrayObject $array
      * @return ArrayHelper
      */
     public function setArray(ArrayObject $array): ArrayHelper
     {
-
         $this->array = $array;
         return $this;
     }
