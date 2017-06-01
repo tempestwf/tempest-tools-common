@@ -4,6 +4,7 @@ namespace TempestTools\Common\Helper;
 
 use ArrayObject;
 use Closure;
+use TempestTools\Common\Contracts\Extractable;
 use TempestTools\Common\Utility\ErrorConstantsTrait;
 
 class ArrayHelper
@@ -26,6 +27,10 @@ class ArrayHelper
         'circularInheritanceDetected'=>
             [
                 'message'=>'Error: Circular inheritance detected in array',
+            ],
+        'notExtractable'=>
+            [
+                'message'=>'Error: object passed to extract method does not implement the Extractable interface',
             ],
     ];
 
@@ -71,6 +76,28 @@ class ArrayHelper
      * @var string TRIGGER_STRING_PARSE
      */
     const TRIGGER_STRING_PARSE = '?';
+
+    /**
+     * Takes an array of objects, and tries to call extractValues on each one, it then stores the result on the objects stored array.
+     *
+     * @param array $objects
+     * @return ArrayObject
+     * @throws \RuntimeException
+     */
+    public function extract(array $objects):ArrayObject {
+        $array = $this->getArray();
+        $array = $array ?? new ArrayObject();
+        foreach ($objects as $object) {
+            if (!$object instanceof Extractable) {
+                throw new \RuntimeException($this->getErrorFromConstant('noExtendsKeyInArray')['message']);
+            }
+            $extracted = $object->extractValues();
+            foreach ($extracted as  $key => $value){
+                $array[$key] = $value;
+            }
+        }
+        return $array;
+    }
 
     /**
      * Automatically detects what operations should be run on a value and then runs them.
@@ -234,7 +261,7 @@ class ArrayHelper
      *
      * @param string $path
      * @throws \RuntimeException
-     * @returns ArrayObject|mixed
+     * @returns mixed
      */
     public function parseStringPath(string $path) {
         $path = $this->trimFront($path);
@@ -258,7 +285,7 @@ class ArrayHelper
      * ]
      *
      * @param array $path
-     * @return ArrayObject|mixed
+     * @return mixed
      */
     public function parseArrayPath(array $path) {
         $result = $this->getArray();
