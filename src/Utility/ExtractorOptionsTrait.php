@@ -15,7 +15,7 @@ trait ExtractorOptionsTrait
      * @param array $options
      * @return Extractable|ExtractorOptionsTrait
      */
-    public function setExtractorOptions(array $options)
+    public function setExtractorOptions(array $options) : Extractable
     {
         $this->extractorOptions = $options;
         return $this;
