@@ -119,6 +119,7 @@ class ArrayHelper
                 $array[$key] = $value;
             }
         }
+        $this->setArray($array);
         return $array;
     }
 
@@ -332,7 +333,7 @@ class ArrayHelper
      * @param ArrayObject $array
      * @return ArrayHelper
      */
-    public function setArray(ArrayObject $array): ArrayHelper
+    public function setArray(ArrayObject $array = NULL): ArrayHelper
     {
         $this->array = $array;
         return $this;
@@ -341,7 +342,7 @@ class ArrayHelper
     /**
      * @return ArrayObject
      */
-    public function getArray(): ArrayObject
+    public function getArray(): ?ArrayObject
     {
         return $this->array;
     }
