@@ -57,6 +57,17 @@ class ArrayHelper
      * @var string END_PLACEHOLDER
      */
     const END_PLACEHOLDER = '}}';
+
+    /**
+     * The start of a placeholder with slashes
+     * @var string START_PLACEHOLDER_SLASHED
+     */
+    const START_PLACEHOLDER_SLASHED = '\{\{';
+    /**
+     * The end of a placeholder with slashes
+     * @var string END_PLACEHOLDER_SLASHED
+     */
+    const END_PLACEHOLDER_SLASHED = '\}\}';
     /**
      * Regex used to extract values from placeholders
      * @var string PLACEHOLDER_REGEX
@@ -77,6 +88,17 @@ class ArrayHelper
      * @var string TRIGGER_STRING_PARSE
      */
     const TRIGGER_STRING_PARSE = '?';
+
+
+    /**
+     * ArrayHelper constructor.
+     *
+     * @param ArrayObject|null $array
+     */
+    public function __construct(ArrayObject $array =  NULL)
+    {
+        $this->setArray($array);
+    }
 
     /**
      * Takes an array of objects, and tries to call extractValues on each one, it then stores the result on the objects stored array.
@@ -157,7 +179,8 @@ class ArrayHelper
         while (count($extends)>0) {
             $extend = array_pop($extends);
             $target = $this->parseStringPath($extend);
-            array_replace($source, $target);
+            /** @noinspection SlowArrayOperationsInLoopInspection */
+            $source = array_replace_recursive($source, $target);
         }
         $source[static::EXTENDED_KEY] = $origExtends;
         unset($source[static::EXTENDS_KEY]);
@@ -240,9 +263,9 @@ class ArrayHelper
         preg_match_all(static::PLACEHOLDER_REGEX, $template, $matches);
         $replacements =  [];
         $patterns = [];
-        /** @var array $matches */
-        foreach($matches as $match) {
-            $patterns[] = static::START_PLACEHOLDER . $match . static::END_PLACEHOLDER;
+        /** @var array[] $matches */
+        foreach($matches[0] as $match) {
+            $patterns[] = '/' . static::START_PLACEHOLDER_SLASHED . $match . static::END_PLACEHOLDER_SLASHED . '/';
             $replacements[] = $this->parseStringPath($match);
         }
         return preg_replace($patterns, $replacements, $template);
