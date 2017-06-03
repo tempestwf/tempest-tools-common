@@ -7,10 +7,9 @@ use Closure;
 use TempestTools\Common\Contracts\Extractable;
 use TempestTools\Common\Utility\ErrorConstantsTrait;
 
-class ArrayHelper
+class ArrayHelper implements \TempestTools\Common\Contracts\ArrayHelper
 {
     use ErrorConstantsTrait;
-
 
     /**
      * @var array ERRORS
@@ -112,7 +111,7 @@ class ArrayHelper
         $array = $array ?? new ArrayObject();
         foreach ($objects as $object) {
             if (!$object instanceof Extractable) {
-                throw new \RuntimeException($this->getErrorFromConstant('noExtendsKeyInArray')['message']);
+                throw new \RuntimeException($this->getErrorFromConstant('notExtractable')['message']);
             }
             $extracted = $object->extractValues();
             foreach ($extracted as  $key => $value){

@@ -1,6 +1,6 @@
 <?php
 
-namespace TempestTools\Common\Laravel;
+namespace TempestTools\Common\Laravel\Utility;
 
 use App;
 use Config;
@@ -60,8 +60,6 @@ class Extractor extends ExtractorAbstract
         $requestValues = [];
         if ($options['request']['enabled'] === true) {
             $requestValues['requestParams'] = $request->all();
-
-
             $requestValues['eTags'] = $request->getETags();
             $requestValues['defaultLocale'] = $request->getDefaultLocale();
             $requestValues['contentType'] = $request->getContentType();
@@ -100,7 +98,8 @@ class Extractor extends ExtractorAbstract
             $requestValues['acceptsHtml'] = $request->acceptsHtml();
             $requestValues['bearerToken'] = $request->bearerToken();
             $requestValues['fingerPrint'] =  $request->fingerprint();
-            
+
+            //Not tested:
             if ($options['request']['all'] === true) {
                 $requestValues['encodings'] = $request->getEncodings();
                 $requestValues['charsets'] = $request->getCharsets();
@@ -119,17 +118,9 @@ class Extractor extends ExtractorAbstract
             $routeValues['actions'] = $request->route()->getAction();
             $routeValues['uri'] = $request->route()->getUri();
             $routeValues['path'] = $request->route()->getPath();
-            $routeValues['isProtected'] = $request->route()->isProtected();
-            $routeValues['hasThrottle'] = $request->route()->hasThrottle();
-            $routeValues['scopes'] = $request->route()->getScopes();
-            $routeValues['scopeStrict'] = $request->route()->scopeStrict();
-            $routeValues['rateLimit'] = $request->route()->rateLimit();
-            $routeValues['rateLimitExpiration'] = $request->route()->rateLimitExpiration();
             $routeValues['name'] = $request->route()->getName();
-            $routeValues['requestIsConditional'] = $request->route()->requestIsConditional();
             $routeValues['action'] = $request->route()->getAction();
             $routeValues['actionName'] = $request->route()->getActionName();
-            $routeValues['versions'] = $request->route()->getVersions();
             $routeValues['methods'] = $request->route()->getMethods();
             $routeValues['httpOnly'] = $request->route()->httpOnly();
             $routeValues['httpsOnly'] = $request->route()->httpsOnly();
@@ -142,12 +133,12 @@ class Extractor extends ExtractorAbstract
         }
 
         $environment = NULL;
-        if ($options['config']['environment'] === true) {
+        if ($options['environment']['enabled'] === true) {
             $environment = App::environment();
         }
 
         return [
-            'framework'=>[
+            'frameworkExtracted'=>[
                 'request'=>$requestValues,
                 'route'=>$routeValues,
                 'config'=>$config,
