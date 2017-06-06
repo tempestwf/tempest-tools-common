@@ -10,4 +10,5 @@ use TempestTools\Common\Helper\ArrayHelperTrait;
 class BaseController extends Controller
 {
     use ArrayHelperTrait;
+
 }
