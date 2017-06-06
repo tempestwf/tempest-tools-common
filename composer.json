@@ -1,0 +1,22 @@
+{
+    "name": "tempest-tools/common",
+    "description": "Common libs for interacting with laravel and performing basic tasks",
+    "require": {
+        "php": ">=7.1.0",
+        "laravel/framework": "5.3.*"
+    },
+    "require-dev": {
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "TempestTools\\Common\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "William Tempest Wright Ferrer",
+            "email": "tempestwf@gmail.com"
+        }
+    ]
+}
