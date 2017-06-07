@@ -10,6 +10,7 @@ use TempestTools\Common\Utility\ExtractorAbstract;
 
 class Extractor extends ExtractorAbstract
 {
+    const EXTRACTOR_KEY_NAME = 'frameworkExtracted';
     /**
      * @var array $options
      */
@@ -25,6 +26,9 @@ class Extractor extends ExtractorAbstract
             'enabled'=>true
         ],
         'environment'=>[
+            'enabled'=>true
+        ],
+        'environmentVars'=>[
             'enabled'=>true
         ]
     ];
@@ -136,13 +140,18 @@ class Extractor extends ExtractorAbstract
         if ($options['environment']['enabled'] === true) {
             $environment = App::environment();
         }
+        $envVars = [];
+        if ($options['environmentVars']['enabled'] === true) {
+            $envVars = $_ENV;
+        }
 
         return [
-            'frameworkExtracted'=>[
+            static::EXTRACTOR_KEY_NAME=>[
                 'request'=>$requestValues,
                 'route'=>$routeValues,
                 'config'=>$config,
-                'environment'=>$environment
+                'environment'=>$environment,
+                'environmentVars'=>$envVars
             ]
         ];
     }

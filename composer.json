@@ -1,9 +1,9 @@
 {
     "name": "tempest-tools/common",
     "description": "Common libs for interacting with laravel and performing basic tasks",
+    "keywords": ["doctrine", "orm", "database", "laravel", "tempest tools"],
     "require": {
-        "php": ">=7.1.0",
-        "laravel/framework": "5.3.*"
+        "php": ">=7.1.0"
     },
     "require-dev": {
     },
