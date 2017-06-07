@@ -175,16 +175,17 @@ class ArrayHelper implements \TempestTools\Common\Contracts\ArrayHelper
     public function parseInheritance(array $source):array{
         $extends = $this->parseInheritancePath($source);
         $origExtends = $extends;
-
+        $result = [];
         while (count($extends)>0) {
             $extend = array_pop($extends);
             $target = $this->parseStringPath($extend);
             /** @noinspection SlowArrayOperationsInLoopInspection */
-            $source = array_replace_recursive($source, $target);
+            $result = array_replace_recursive($result, $target);
         }
-        $source[static::EXTENDED_KEY] = $origExtends;
-        unset($source[static::EXTENDS_KEY]);
-        return $source;
+        $result = array_replace_recursive($result, $source);
+        $result[static::EXTENDED_KEY] = $origExtends;
+        unset($result[static::EXTENDS_KEY]);
+        return $result;
     }
 
     /**
@@ -210,7 +211,7 @@ class ArrayHelper implements \TempestTools\Common\Contracts\ArrayHelper
      *]
      * If you pass this method a source like so:
      * [
-     *    'extends'=>['two', 'four']
+     *    'extends'=>[':two', ':four']
      *  ]
      * You would get a result of:
      * ["two", "one", "base", "four"]
@@ -245,7 +246,7 @@ class ArrayHelper implements \TempestTools\Common\Contracts\ArrayHelper
     /**
      * Replaces placeholder values wrapped in {{}} with the paths stored inside them.
      * For instance
-     * {{:key1:subKey1:subKey2}} would return "foo" from array:
+     * ?{{:key1:subKey1:subKey2}} would return "foo" from array:
      * [
      *  'key1' => [
      *      'subKey1' => [
@@ -274,7 +275,7 @@ class ArrayHelper implements \TempestTools\Common\Contracts\ArrayHelper
 
     /**
      * Gets an value from the array, using a : separated list of array keys passed in as a string. For instance
-     * :key1:subKey1:subKey2 would return "foo" from array:
+     * ?:key1:subKey1:subKey2 would return "foo" from array:
      * [
      *  'key1' => [
      *      'subKey1' => [
