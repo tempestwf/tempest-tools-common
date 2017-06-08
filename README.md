@@ -1,6 +1,6 @@
 # Tempest Tools Common
  
-This package contains libraries used in other tempest tools packages.
+This package contains libraries used in other Tempest Tools Packages.
  
 Please see the wiki for additional documentation.
  
