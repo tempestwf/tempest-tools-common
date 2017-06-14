@@ -2,7 +2,6 @@
 
 namespace TempestTools\Common\Helper;
 
-use TempestTools\Common\Contracts\ArrayHelpable;
 use \TempestTools\Common\Contracts\ArrayHelper as ArrayHelperContract;
 
 
@@ -28,12 +27,10 @@ trait ArrayHelperTrait
 
     /**
      * @param null|ArrayHelperContract $arrayHelper
-     * @return ArrayHelperTrait|ArrayHelpable
      */
-    public function setArrayHelper(ArrayHelperContract $arrayHelper):ArrayHelpable
+    public function setArrayHelper(ArrayHelperContract $arrayHelper)
     {
         $this->arrayHelper = $arrayHelper;
-        return $this;
     }
 
     /**

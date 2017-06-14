@@ -2,8 +2,6 @@
 
 namespace TempestTools\Common\Utility;
 
-use TempestTools\Common\Contracts\Extractable;
-
 trait ExtractorOptionsTrait
 {
     /**
@@ -13,12 +11,10 @@ trait ExtractorOptionsTrait
 
     /**
      * @param array $options
-     * @return Extractable|ExtractorOptionsTrait
      */
-    public function setExtractorOptions(array $options) : Extractable
+    public function setExtractorOptions(array $options)
     {
         $this->extractorOptions = $options;
-        return $this;
     }
 
     /**

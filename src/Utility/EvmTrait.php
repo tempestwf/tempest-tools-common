@@ -4,7 +4,6 @@ namespace TempestTools\Common\Utility;
 
 
 use Doctrine\Common\EventManager;
-use TempestTools\Common\Contracts\Evm;
 
 trait EvmTrait
 {
@@ -13,12 +12,10 @@ trait EvmTrait
 
     /**
      * @param EventManager|null $evm
-     * @return EvmTrait|Evm
      */
-    public function setEvm(EventManager $evm):Evm
+    public function setEvm(EventManager $evm)
     {
         $this->evm = $evm;
-        return $this;
     }
 
     /**

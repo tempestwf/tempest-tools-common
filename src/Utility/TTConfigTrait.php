@@ -2,8 +2,6 @@
 
 namespace TempestTools\Common\Utility;
 
-
-use TempestTools\Common\Contracts\TTConfig;
 use TempestTools\Common\Helper\ArrayHelper;
 use \TempestTools\Common\Contracts\ArrayHelper as ArrayHelperContract;
 
@@ -52,12 +50,10 @@ trait TTConfigTrait
 
     /**
      * @param array $ttConfigParsed
-     * @return TTConfigTrait|TTConfig
      */
-    public function setTTConfigParsed(array $ttConfigParsed): TTConfig
+    public function setTTConfigParsed(array $ttConfigParsed)
     {
         $this->ttConfigParsed = $ttConfigParsed;
-        return $this;
     }
 
     /**
@@ -78,22 +74,18 @@ trait TTConfigTrait
 
     /**
      * @param array $ttPath
-     * @return TTConfigTrait|TTConfig
      */
-    public function setTTPath(array $ttPath): TTConfig
+    public function setTTPath(array $ttPath)
     {
         $this->ttPath = $ttPath;
-        return $this;
     }
 
     /**
      * @param array $ttFallBack
-     * @return TTConfigTrait|TTConfig
      */
-    public function setTTFallBack(array $ttFallBack): TTConfig
+    public function setTTFallBack(array $ttFallBack)
     {
         $this->ttFallBack = $ttFallBack;
-        return $this;
     }
 
     /**
@@ -122,12 +114,10 @@ trait TTConfigTrait
 
     /**
      * @param NULL|ArrayHelperContract $configArrayHelper
-     * @return TTConfigTrait|TTConfig
      */
-    public function setConfigArrayHelper(ArrayHelperContract $configArrayHelper):TTConfig
+    public function setConfigArrayHelper(ArrayHelperContract $configArrayHelper)
     {
         $this->configArrayHelper = $configArrayHelper;
-        return $this;
     }
 
 }

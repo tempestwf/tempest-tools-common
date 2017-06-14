@@ -13,12 +13,10 @@ trait EmTrait
 
     /**
      * @param EntityManager $em
-     * @return EmTrait
      */
     public function setEm(EntityManager $em)
     {
         $this->em = $em;
-        return $this;
     }
 
     /**
