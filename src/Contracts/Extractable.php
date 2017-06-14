@@ -14,14 +14,13 @@ interface Extractable
     /**
      * setter
      * @param array $options
-     * @return Extractable
      */
-    public function setExtractorOptions(array $options) : Extractable;
+    public function setExtractorOptions(array $options);
 
     /**
      * getter
      * @return array
      */
-    public function getExtractorOptions():array;
+    public function getExtractorOptions():?array;
 
 }

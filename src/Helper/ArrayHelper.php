@@ -121,6 +121,7 @@ class ArrayHelper implements \TempestTools\Common\Contracts\ArrayHelper
         $this->setArray($array);
         return $array;
     }
+    /** @noinspection MoreThanThreeArgumentsInspection */
 
     /**
      * Automatically detects what operations should be run on a value and then runs them.
@@ -129,10 +130,11 @@ class ArrayHelper implements \TempestTools\Common\Contracts\ArrayHelper
      * @param mixed $value
      * @param array $extra
      * @param bool $pathRequired
+     * @param bool $parsePathResult
      * @return array|ArrayObject|mixed|string
      * @throws \RuntimeException
      */
-    public function parse($value, $extra=[], $pathRequired=false){
+    public function parse($value, $extra=[], $pathRequired=false, $parsePathResult = true){
         if ($value instanceof Closure) {
             return $this->parseClosure($value, $extra);
         }
@@ -144,10 +146,10 @@ class ArrayHelper implements \TempestTools\Common\Contracts\ArrayHelper
         if (is_string($value) && $value[0] === static::TRIGGER_STRING_PARSE) {
             $value = $this->trimFront($value);
             if ($value[0] === static::PATH_SEPARATOR) {
-                return $this->parseStringPath($value, $extra, $pathRequired);
+                return $this->parseStringPath($value, $extra, $pathRequired, $parsePathResult);
             }
 
-            return $this->parseTemplate($value, $extra, $pathRequired);
+            return $this->parseTemplate($value, $extra, $pathRequired, $parsePathResult);
         }
 
         return $value;
@@ -182,7 +184,7 @@ class ArrayHelper implements \TempestTools\Common\Contracts\ArrayHelper
         $result = [];
         while (count($extends)>0) {
             $extend = array_pop($extends);
-            $target = $this->parseStringPath($extend);
+            $target = $this->parseStringPath($extend, [], false, false);
             /** @noinspection SlowArrayOperationsInLoopInspection */
             $result = array_replace_recursive($result, $target);
         }
@@ -234,7 +236,7 @@ class ArrayHelper implements \TempestTools\Common\Contracts\ArrayHelper
         /** @noinspection CallableInLoopTerminationConditionInspection */
         for($n=0; $n<count($extendsList); $n++) {
             $extends = $extendsList[$n];
-            $target = $this->parseStringPath($extends);
+            $target = $this->parseStringPath($extends, [], false, false);
             if (isset($target[static::EXTENDS_KEY]) && is_array($target[static::EXTENDS_KEY]) && count($target[static::EXTENDS_KEY]) > 0) {
                 $targetExtends = $target[static::EXTENDS_KEY];
                 array_splice($extendsList,$n+1,0,$targetExtends);
@@ -246,6 +248,8 @@ class ArrayHelper implements \TempestTools\Common\Contracts\ArrayHelper
 
         return $extendsList;
     }
+
+    /** @noinspection MoreThanThreeArgumentsInspection */
 
     /**
      * Replaces placeholder values wrapped in {{}} with the paths stored inside them.
@@ -262,10 +266,11 @@ class ArrayHelper implements \TempestTools\Common\Contracts\ArrayHelper
      * @param string $template
      * @param array $extra
      * @param bool $pathRequired
+     * @param bool $parsePathResult
      * @return string
      * @throws \RuntimeException
      */
-    public function parseTemplate(string $template, $extra=[], $pathRequired=false):string{
+    public function parseTemplate(string $template, $extra=[], $pathRequired=false, $parsePathResult = true):string{
         $template = $this->trimFront($template);
         preg_match_all(static::PLACEHOLDER_REGEX, $template, $matches);
         $replacements =  [];
@@ -273,10 +278,11 @@ class ArrayHelper implements \TempestTools\Common\Contracts\ArrayHelper
         /** @var array[] $matches */
         foreach($matches[0] as $match) {
             $patterns[] = '/' . static::START_PLACEHOLDER_SLASHED . $match . static::END_PLACEHOLDER_SLASHED . '/';
-            $replacements[] = $this->parseStringPath($match, $extra, $pathRequired);
+            $replacements[] = $this->parseStringPath($match, $extra, $pathRequired, $parsePathResult);
         }
         return preg_replace($patterns, $replacements, $template);
     }
+    /** @noinspection MoreThanThreeArgumentsInspection */
 
 
     /**
@@ -291,20 +297,22 @@ class ArrayHelper implements \TempestTools\Common\Contracts\ArrayHelper
      * ]
      *
      * @param string $path
-     * @param bool $pathRequired
      * @param array $extra
+     * @param bool $pathRequired
+     * @param bool $parsePathResult
      * @return mixed
      * @throws \RuntimeException
      */
-    public function parseStringPath(string $path, array $extra = [], $pathRequired=false) {
+    public function parseStringPath(string $path, array $extra = [], $pathRequired=false, $parsePathResult = true) {
         $path = $this->trimFront($path);
         if ($path[0] !== static::PATH_SEPARATOR) {
             throw new \RuntimeException($this->getErrorFromConstant('stringPathDoesNotStartWith')['message']);
         }
         $path = ltrim($path, static::PATH_SEPARATOR);
         $pathArray =  preg_split('/' . static::PATH_SEPARATOR . '/', $path);
-        return $this->parseArrayPath($pathArray, $extra, $pathRequired);
+        return $this->parseArrayPath($pathArray, $extra, $pathRequired, $parsePathResult);
     }
+    /** @noinspection MoreThanThreeArgumentsInspection */
 
     /**
      * Gets an value from the array, using a array keys passed. For instance ['key1','subKey1','subKey2'] would return
@@ -318,12 +326,13 @@ class ArrayHelper implements \TempestTools\Common\Contracts\ArrayHelper
      * ]
      *
      * @param array $path
-     * @param bool $pathRequired
      * @param array $extra
+     * @param bool $pathRequired
+     * @param bool $parsePathResult
      * @return mixed
      * @throws \RuntimeException
      */
-    public function parseArrayPath(array $path, array $extra = [], $pathRequired=false) {
+    public function parseArrayPath(array $path, array $extra = [], $pathRequired=false, $parsePathResult = true) {
         $result = $this->getArray();
         foreach ($path as $pathPiece) {
             if ($pathRequired === false ) {
@@ -336,7 +345,8 @@ class ArrayHelper implements \TempestTools\Common\Contracts\ArrayHelper
                 $result = $result[$pathPiece];
             }
         }
-        return $this->parse($result, $extra, $pathRequired);
+
+        return $parsePathResult === true ? $this->parse($result, $extra, $pathRequired, $parsePathResult): $result;
     }
 
     /**
