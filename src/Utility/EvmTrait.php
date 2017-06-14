@@ -21,7 +21,7 @@ trait EvmTrait
     /**
      * @return EventManager|null
      */
-    public function getEvm():EventManager
+    public function getEvm():?EventManager
     {
         return $this->evm;
     }

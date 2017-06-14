@@ -20,7 +20,7 @@ trait ExtractorOptionsTrait
     /**
      * @return array
      */
-    public function getExtractorOptions(): array
+    public function getExtractorOptions(): ?array
     {
         return $this->extractorOptions;
     }

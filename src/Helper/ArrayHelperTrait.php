@@ -36,7 +36,7 @@ trait ArrayHelperTrait
     /**
      * @return null|ArrayHelper
      */
-    public function getArrayHelper():ArrayHelper
+    public function getArrayHelper():?ArrayHelper
     {
         return $this->arrayHelper;
     }
