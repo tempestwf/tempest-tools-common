@@ -2,6 +2,8 @@
 
 namespace TempestTools\Common\Contracts;
 
+use \TempestTools\Common\Contracts\ArrayHelper as ArrayHelperContract;
+
 
 interface TTConfig
 {
@@ -21,4 +23,8 @@ interface TTConfig
     public function getTTPath(): array;
 
     public function getTTFallBack(): array;
+
+    public function getConfigArrayHelper():ArrayHelperContract;
+
+    public function setConfigArrayHelper(ArrayHelperContract $configArrayHelper):TTConfig;
 }

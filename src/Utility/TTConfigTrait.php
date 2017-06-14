@@ -5,6 +5,7 @@ namespace TempestTools\Common\Utility;
 
 use TempestTools\Common\Contracts\TTConfig;
 use TempestTools\Common\Helper\ArrayHelper;
+use \TempestTools\Common\Contracts\ArrayHelper as ArrayHelperContract;
 
 trait TTConfigTrait
 {
@@ -24,6 +25,11 @@ trait TTConfigTrait
     protected $ttFallBack = [];
 
     /**
+     * @var ArrayHelper|NULL $configArrayHelper;
+     */
+    protected $configArrayHelper;
+
+    /**
      * Tags a config and a path, gets the element in the path in the config, and then uses an array helper to parse
      * it's inheritance. Sets the result on parsedConfig property
      *
@@ -40,6 +46,7 @@ trait TTConfigTrait
         $target = $target ?? $arrayHelper->parseArrayPath($fallBack);
         $result = $arrayHelper->parseInheritance($target);
         $this->setTTConfigParsed($result);
+        $this->setConfigArrayHelper($arrayHelper);
         return $result;
     }
 
@@ -103,6 +110,24 @@ trait TTConfigTrait
     public function getTTFallBack(): array
     {
         return $this->ttFallBack;
+    }
+
+    /**
+     * @return NULL|ArrayHelperContract
+     */
+    public function getConfigArrayHelper():ArrayHelperContract
+    {
+        return $this->configArrayHelper;
+    }
+
+    /**
+     * @param NULL|ArrayHelperContract $configArrayHelper
+     * @return TTConfigTrait|TTConfig
+     */
+    public function setConfigArrayHelper(ArrayHelperContract $configArrayHelper):TTConfig
+    {
+        $this->configArrayHelper = $configArrayHelper;
+        return $this;
     }
 
 }
