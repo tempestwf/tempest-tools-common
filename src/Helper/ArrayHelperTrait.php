@@ -2,6 +2,9 @@
 
 namespace TempestTools\Common\Helper;
 
+use TempestTools\Common\Contracts\ArrayHelpable;
+use \TempestTools\Common\Contracts\ArrayHelper as ArrayHelperContract;
+
 
 trait ArrayHelperTrait
 {
@@ -19,14 +22,15 @@ trait ArrayHelperTrait
      */
     public function extractSelf (): \ArrayObject
     {
+        /** @noinspection NullPointerExceptionInspection */
         return $this->arrayHelper()->extract([$this]);
     }
 
     /**
-     * @param null|ArrayHelper $arrayHelper
-     * @return ArrayHelperTrait
+     * @param null|ArrayHelperContract $arrayHelper
+     * @return ArrayHelperTrait|ArrayHelpable
      */
-    public function setArrayHelper(ArrayHelper $arrayHelper)
+    public function setArrayHelper(ArrayHelperContract $arrayHelper):ArrayHelpable
     {
         $this->arrayHelper = $arrayHelper;
         return $this;
@@ -35,7 +39,7 @@ trait ArrayHelperTrait
     /**
      * @return null|ArrayHelper
      */
-    public function getArrayHelper()
+    public function getArrayHelper():ArrayHelper
     {
         return $this->arrayHelper;
     }
