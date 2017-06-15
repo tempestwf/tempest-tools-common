@@ -110,4 +110,27 @@ trait TTConfigTrait
         $this->configArrayHelper = $configArrayHelper;
     }
 
+    /** @noinspection MoreThanThreeArgumentsInspection */
+    /**
+     * Common logic for checking if the permissive settings allow something to be don
+     * @param array $high
+     * @param array $low
+     * @param string $canDo
+     * @param string $target
+     * @return bool
+     */
+    public function permissivePermissionCheck (array $high, array $low, string $canDo, string $target):bool {
+        $highPermissive = isset($high['permissive']) ?? $high['permissive'];
+        $lowPermissive = $low !== NULL && isset($low['permissive']) ?? $high['permissive'];
+
+        $allowed = true;
+        $allowed = $highPermissive === false && $low === NULL?false:$allowed;
+        $allowed = $lowPermissive === false && (!isset($low[$canDo]) || !isset($low[$canDo][$target]) || $low[$canDo][$target] === false) ?false:$allowed;
+        $allowed = $lowPermissive === true && isset($low[$canDo]) && isset($low[$canDo][$target]) && $low[$canDo][$target] === false ?false:$allowed;
+
+        return $allowed;
+    }
+
+
+
 }
