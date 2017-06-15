@@ -122,6 +122,26 @@ trait TTConfigTrait
         return $allowed;
     }
 
+    /**
+     * @param array $high
+     * @param array $low
+     * @param string $setting
+     * @return bool|mixed|null
+     */
+    public function highLowSettingCheck(array $high, array $low, string $setting){
+        $highSet = isset($high[$setting]) ?? $high[$setting];
+        $lowSet = $low !== NULL && isset($low[$setting]) ?? $high[$setting];
+        if ($lowSet !== NULL ) {
+            return $lowSet;
+        }
+
+        if ($highSet !== NULL) {
+            return $highSet;
+        }
+
+        return NULL;
+    }
+
 
 
 }
