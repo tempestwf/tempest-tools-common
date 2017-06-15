@@ -40,17 +40,8 @@ trait TTConfigTrait
         $target = $target ?? $arrayHelper->parseArrayPath($fallBack);
         $result = $arrayHelper->parseInheritance($target);
         $arrayHelper->setArray($result);
-        $this->setTTConfigParsed($result);
         $this->setConfigArrayHelper($arrayHelper);
         return $result;
-    }
-
-    /**
-     * @param array $ttConfigParsed
-     */
-    public function setTTConfigParsed(array $ttConfigParsed)
-    {
-        $this->ttConfigParsed = $ttConfigParsed;
     }
 
 
