@@ -104,13 +104,13 @@ trait TTConfigTrait
     /** @noinspection MoreThanThreeArgumentsInspection */
     /**
      * Common logic for checking if the permissive settings allow something to be don
-     * @param array $high
+     * @param array|\ArrayObject $high
      * @param array $low
      * @param string $canDo
      * @param string $target
      * @return bool
      */
-    public function permissivePermissionCheck (array $high, array $low, string $canDo, string $target):bool {
+    public function permissivePermissionCheck ($high, array $low, string $canDo, string $target):bool {
         $highPermissive = isset($high['permissive']) ?? $high['permissive'];
         $lowPermissive = $low !== NULL && isset($low['permissive']) ?? $high['permissive'];
 
@@ -123,12 +123,12 @@ trait TTConfigTrait
     }
 
     /**
-     * @param array $high
+     * @param array|\ArrayObject $high
      * @param array $low
      * @param string $setting
      * @return bool|mixed|null
      */
-    public function highLowSettingCheck(array $high, array $low, string $setting){
+    public function highLowSettingCheck($high, array $low, string $setting){
         $highSet = isset($high[$setting]) ?? $high[$setting];
         $lowSet = $low !== NULL && isset($low[$setting]) ?? $high[$setting];
         if ($lowSet !== NULL ) {
