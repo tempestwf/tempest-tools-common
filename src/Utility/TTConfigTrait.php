@@ -7,10 +7,6 @@ use \TempestTools\Common\Contracts\ArrayHelper as ArrayHelperContract;
 
 trait TTConfigTrait
 {
-    /**
-     * @var array $parsedTTConfig
-     */
-    protected $ttConfigParsed = [];
 
     /**
      * @var array $ttPath
@@ -43,6 +39,7 @@ trait TTConfigTrait
         $target = $arrayHelper->parseArrayPath($path);
         $target = $target ?? $arrayHelper->parseArrayPath($fallBack);
         $result = $arrayHelper->parseInheritance($target);
+        $arrayHelper->setArray($result);
         $this->setTTConfigParsed($result);
         $this->setConfigArrayHelper($arrayHelper);
         return $result;
@@ -56,13 +53,6 @@ trait TTConfigTrait
         $this->ttConfigParsed = $ttConfigParsed;
     }
 
-    /**
-     * @return array
-     */
-    public function getTTConfigParsed(): array
-    {
-        return $this->ttConfigParsed;
-    }
 
     /**
      * @return array
