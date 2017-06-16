@@ -134,7 +134,7 @@ class ArrayHelper implements \TempestTools\Common\Contracts\ArrayHelper
      * @return array|ArrayObject|mixed|string
      * @throws \RuntimeException
      */
-    public function parse($value, $extra=[], $pathRequired=false, $parsePathResult = true){
+    public function parse($value, array $extra=[], $pathRequired=false, $parsePathResult = true){
         if ($value instanceof Closure) {
             return $this->parseClosure($value, $extra);
         }
@@ -375,6 +375,35 @@ class ArrayHelper implements \TempestTools\Common\Contracts\ArrayHelper
     {
         return $this->array;
     }
+    /** @noinspection MoreThanThreeArgumentsInspection */
 
+    /**
+     * Finds the right most occurrence of a setting in the settings array, parses it if requested, and returns it.
+     * If a key is passed it will look for that key in arrays passed to it.
+     *
+     * @param array $settings
+     * @param string|null $key
+     * @param bool $parse
+     * @param array $extra
+     * @param bool $pathRequired
+     * @param bool $parsePathResult
+     * @return mixed
+     * @throws \RuntimeException
+     */
+    public function findSetting(array $settings, string $key = NULL, bool $parse = true, array $extra=[], $pathRequired=false, $parsePathResult = true) {
+        for ($n=count($settings)-1;$n>=0; $n--) {
+            $target = $settings[$n];
+            if ($target !== NULL) {
+                if ($key !== NULL) {
+                    if (isset($target[$key])) {
+                        return $parse === true?$this->parse($target[$key], $extra, $pathRequired, $parsePathResult):$target[$key];
+                    }
+                } else {
+                    return $parse === true?$this->parse($target, $extra, $pathRequired, $parsePathResult):$target;
+                }
+            }
+        }
+        return NULL;
+    }
 
 }

@@ -11,12 +11,12 @@ trait TTConfigTrait
     /**
      * @var array $ttPath
      */
-    protected $ttPath = [];
+    protected $ttPath;
 
     /**
      * @var array $ttFallBack
      */
-    protected $ttFallBack = [];
+    protected $ttFallBack;
 
     /**
      * @var ArrayHelper|NULL $configArrayHelper;
@@ -70,17 +70,17 @@ trait TTConfigTrait
     }
 
     /**
-     * @return array
+     * @return NULL|array
      */
-    public function getTTPath(): array
+    public function getTTPath(): ?array
     {
         return $this->ttPath;
     }
 
     /**
-     * @return array
+     * @return NULL|array
      */
-    public function getTTFallBack(): array
+    public function getTTFallBack(): ?array
     {
         return $this->ttFallBack;
     }
@@ -88,13 +88,13 @@ trait TTConfigTrait
     /**
      * @return NULL|ArrayHelperContract
      */
-    public function getConfigArrayHelper():ArrayHelperContract
+    public function getConfigArrayHelper():?ArrayHelperContract
     {
         return $this->configArrayHelper;
     }
 
     /**
-     * @param NULL|ArrayHelperContract $configArrayHelper
+     * @param ArrayHelperContract $configArrayHelper
      */
     public function setConfigArrayHelper(ArrayHelperContract $configArrayHelper)
     {
