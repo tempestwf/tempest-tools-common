@@ -163,7 +163,7 @@ class ArrayHelper implements \TempestTools\Common\Contracts\ArrayHelper
      * @param array $extra
      * @return mixed
      */
-    public function parseClosure(Closure $closure, $extra=[]) {
+    public function parseClosure(Closure $closure, array $extra=[]) {
         return $closure($this, $extra);
     }
 
@@ -270,7 +270,7 @@ class ArrayHelper implements \TempestTools\Common\Contracts\ArrayHelper
      * @return string
      * @throws \RuntimeException
      */
-    public function parseTemplate(string $template, $extra=[], $pathRequired=false, $parsePathResult = true):string{
+    public function parseTemplate(string $template, array $extra=[], bool $pathRequired=false, bool $parsePathResult = true):string{
         $template = $this->trimFront($template);
         preg_match_all(static::PLACEHOLDER_REGEX, $template, $matches);
         $replacements =  [];
@@ -303,7 +303,7 @@ class ArrayHelper implements \TempestTools\Common\Contracts\ArrayHelper
      * @return mixed
      * @throws \RuntimeException
      */
-    public function parseStringPath(string $path, array $extra = [], $pathRequired=false, $parsePathResult = true) {
+    public function parseStringPath(string $path, array $extra = [], bool $pathRequired=false, bool $parsePathResult = true) {
         $path = $this->trimFront($path);
         if ($path[0] !== static::PATH_SEPARATOR) {
             throw new \RuntimeException($this->getErrorFromConstant('stringPathDoesNotStartWith')['message']);
@@ -332,7 +332,7 @@ class ArrayHelper implements \TempestTools\Common\Contracts\ArrayHelper
      * @return mixed
      * @throws \RuntimeException
      */
-    public function parseArrayPath(array $path, array $extra = [], $pathRequired=false, $parsePathResult = true) {
+    public function parseArrayPath(array $path, array $extra = [], bool $pathRequired=false, bool $parsePathResult = true) {
         $result = $this->getArray();
         foreach ($path as $pathPiece) {
             if ($pathRequired === false ) {
@@ -404,6 +404,31 @@ class ArrayHelper implements \TempestTools\Common\Contracts\ArrayHelper
             }
         }
         return NULL;
+    }
+
+    /**
+     * If the array passed is associative it wraps it in a numeric array
+     * @param array $array
+     * @return array
+     */
+    public function wrapArray(array $array): array
+    {
+        return $this->isNumeric($array)?$array:[$array];
+    }
+
+    /**
+     * Checks if an array is numeric or not, if fast is set to false it will use a more through but slightly slower method.
+     * @param array $array
+     * @param bool $fast
+     * @return bool
+     */
+    public function isNumeric(array $array, $fast = true): bool
+    {
+        if ($fast) {
+            return isset($array[0]);
+        }
+
+        return array_keys($array) !== range(0, count($array) - 1);
     }
 
 }

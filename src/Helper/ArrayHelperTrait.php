@@ -8,7 +8,7 @@ use \TempestTools\Common\Contracts\ArrayHelper as ArrayHelperContract;
 trait ArrayHelperTrait
 {
     /**
-     * @var ArrayHelper|null $arrayHelper
+     * @var ArrayHelperContract|null $arrayHelper
      */
     protected $arrayHelper;
 
@@ -34,18 +34,18 @@ trait ArrayHelperTrait
     }
 
     /**
-     * @return null|ArrayHelper
+     * @return null|ArrayHelperContract
      */
-    public function getArrayHelper():?ArrayHelper
+    public function getArrayHelper():?ArrayHelperContract
     {
         return $this->arrayHelper;
     }
 
     /**
      * Gets existing array helper, or makes new one and then returns it
-     * @return null|ArrayHelper
+     * @return null|ArrayHelperContract
      */
-    public function arrayHelper():ArrayHelper {
+    public function arrayHelper():ArrayHelperContract {
         $arrayHelper = $this->getArrayHelper();
         if ($arrayHelper === NULL) {
             $arrayHelper = new ArrayHelper();
