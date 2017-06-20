@@ -87,9 +87,9 @@ trait TTConfigTrait
     }
 
     /**
-     * @return NULL|ArrayHelperContract|mixed
+     * @return NULL|ArrayHelperContract
      */
-    public function getConfigArrayHelper()
+    public function getConfigArrayHelper():?ArrayHelperContract
     {
         return $this->configArrayHelper;
     }
