@@ -360,9 +360,9 @@ class ArrayHelper implements \TempestTools\Common\Contracts\ArrayHelper
 
     /**
      * @param ArrayObject $array
-     * @return ArrayHelper
+     * @return \TempestTools\Common\Contracts\ArrayHelper
      */
-    public function setArray(ArrayObject $array = NULL): ArrayHelper
+    public function setArray(ArrayObject $array = NULL): \TempestTools\Common\Contracts\ArrayHelper
     {
         $this->array = $array;
         return $this;
@@ -429,6 +429,25 @@ class ArrayHelper implements \TempestTools\Common\Contracts\ArrayHelper
         }
 
         return array_keys($array) !== range(0, count($array) - 1);
+    }
+
+    /**
+     * @param array $values
+     * @param array $enforce
+     * @param array $extra
+     * @return bool
+     * @throws \RuntimeException
+     */
+    public function testEnforceValues (array $values, array $enforce, array $extra=[]):bool {
+        $allowed = true;
+        foreach ($enforce as $key => $value) {
+            /** @noinspection NullPointerExceptionInspection */
+            if ($values[$key] !== $this->parse($value, $extra)) {
+                $allowed = false;
+                break;
+            }
+        }
+        return $allowed;
     }
 
 }

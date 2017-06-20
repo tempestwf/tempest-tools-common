@@ -54,7 +54,7 @@ interface ArrayHelper
      */
     public function parseArrayPath(array $path, array $extra = [], bool $pathRequired=false, bool $parsePathResult = true);
 
-    public function setArray(ArrayObject $array = NULL): \TempestTools\Common\Helper\ArrayHelper;
+    public function setArray(ArrayObject $array = NULL): ArrayHelper;
 
     public function getArray(): ?ArrayObject;
 
@@ -72,4 +72,6 @@ interface ArrayHelper
     public function wrapArray(array $array): array;
 
     public function isNumeric(array $array, $fast = true): bool;
+
+    public function testEnforceValues (array $values, array $enforce, array $extra=[]):bool;
 }

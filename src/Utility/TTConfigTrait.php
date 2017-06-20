@@ -27,15 +27,16 @@ trait TTConfigTrait
      * Tags a config and a path, gets the element in the path in the config, and then uses an array helper to parse
      * it's inheritance. Sets the result on parsedConfig property
      *
-     * @throws \RuntimeException
+     * @param ArrayHelperContract|null $substituteArrayHelper
      * @return array
+     * @throws \RuntimeException
      */
-    public function parseTTConfig():array
+    public function parseTTConfig(ArrayHelperContract $substituteArrayHelper = NULL):array
     {
         $config = $this->getTTConfig();
         $path = $this->getTTPath();
         $fallBack = $this->getTTFallBack();
-        $arrayHelper =  new ArrayHelper($config);
+        $arrayHelper = $substituteArrayHelper === NULL?new ArrayHelper($config):$substituteArrayHelper->setArray($config);
         $target = $arrayHelper->parseArrayPath($path);
         $target = $target ?? $arrayHelper->parseArrayPath($fallBack);
         $result = $arrayHelper->parseInheritance($target);
@@ -86,9 +87,9 @@ trait TTConfigTrait
     }
 
     /**
-     * @return NULL|ArrayHelperContract
+     * @return NULL|ArrayHelperContract|mixed
      */
-    public function getConfigArrayHelper():?ArrayHelperContract
+    public function getConfigArrayHelper()
     {
         return $this->configArrayHelper;
     }
