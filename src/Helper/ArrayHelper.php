@@ -20,10 +20,6 @@ class ArrayHelper implements \TempestTools\Common\Contracts\ArrayHelper
             [
                 'message'=>'Error: string passed to parseStringPath does not start with path separator',
             ],
-        'noExtendsKeyInArray'=>
-            [
-                'message'=>'Error: array passed to parseInheritancePath does not have an "extends" key',
-            ],
         'circularInheritanceDetected'=>
             [
                 'message'=>'Error: Circular inheritance detected in array',
@@ -180,6 +176,9 @@ class ArrayHelper implements \TempestTools\Common\Contracts\ArrayHelper
      */
     public function parseInheritance(array $source):array{
         $extends = $this->parseInheritancePath($source);
+        if (count($extends) === 0 ) {
+            return $source;
+        }
         $origExtends = $extends;
         $result = [];
         while (count($extends)>0) {
@@ -227,7 +226,7 @@ class ArrayHelper implements \TempestTools\Common\Contracts\ArrayHelper
      */
     public function parseInheritancePath(array $source):array{
         if (!isset($source[static::EXTENDS_KEY])) {
-            throw new \RuntimeException($this->getErrorFromConstant('noExtendsKeyInArray')['message']);
+            return [];
         }
 
         /** @var array $extendsList */

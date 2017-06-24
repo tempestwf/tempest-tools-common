@@ -2,6 +2,7 @@
 
 namespace TempestTools\Common\Utility;
 
+use ArrayObject;
 use TempestTools\Common\Helper\ArrayHelper;
 use \TempestTools\Common\Contracts\ArrayHelper as ArrayHelperContract;
 
@@ -36,11 +37,11 @@ trait TTConfigTrait
         $config = $this->getTTConfig();
         $path = $this->getTTPath();
         $fallBack = $this->getTTFallBack();
-        $arrayHelper = $substituteArrayHelper === NULL?new ArrayHelper($config):$substituteArrayHelper->setArray($config);
+        $arrayHelper = $substituteArrayHelper === NULL?new ArrayHelper(new ArrayObject($config)):$substituteArrayHelper->setArray(new ArrayObject($config));
         $target = $arrayHelper->parseArrayPath($path);
         $target = $target ?? $arrayHelper->parseArrayPath($fallBack);
         $result = $arrayHelper->parseInheritance($target);
-        $arrayHelper->setArray($result);
+        $arrayHelper->setArray(new ArrayObject($result));
         $this->setConfigArrayHelper($arrayHelper);
         return $result;
     }
@@ -112,7 +113,9 @@ trait TTConfigTrait
      * @return bool
      */
     public function permissivePermissionCheck ($high, array $low, string $canDo, string $target):bool {
+        //TODO: Need to default to true
         $highPermissive = isset($high['permissive']) ?? $high['permissive'];
+        //TODO: Need to default to true
         $lowPermissive = $low !== NULL && isset($low['permissive']) ?? $high['permissive'];
 
         $allowed = true;
@@ -129,7 +132,7 @@ trait TTConfigTrait
      * @param string $setting
      * @return bool|mixed|null
      */
-    public function highLowSettingCheck($high, array $low, string $setting){
+    public function highLowSettingCheck($high, array $low = NULL, string $setting){
         $highSet = isset($high[$setting]) ?? $high[$setting];
         $lowSet = $low !== NULL && isset($low[$setting]) ?? $high[$setting];
         if ($lowSet !== NULL ) {
