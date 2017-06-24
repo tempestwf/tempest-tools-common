@@ -113,15 +113,9 @@ trait TTConfigTrait
      * @return bool
      */
     public function permissivePermissionCheck ($high, array $low, string $canDo, string $target):bool {
-        //TODO: Need to default to true
-        $highPermissive = isset($high['permissive']) ?? $high['permissive'];
-        //TODO: Need to default to true
-        $lowPermissive = $low !== NULL && isset($low['permissive']) ?? $high['permissive'];
-
-        $allowed = true;
-        $allowed = $highPermissive === false && $low === NULL?false:$allowed;
-        $allowed = $lowPermissive === false && (!isset($low[$canDo]) || !isset($low[$canDo][$target]) || $low[$canDo][$target] === false) ?false:$allowed;
-        $allowed = $lowPermissive === true && isset($low[$canDo]) && isset($low[$canDo][$target]) && $low[$canDo][$target] === false ?false:$allowed;
+        $highPermissive = $high['permissive'] ?? true;
+        $allowed = $low !== NULL && isset($low['permissive']) ? $low['permissive']:$highPermissive;
+        $allowed = $low[$canDo][$target] ?? $allowed;
 
         return $allowed;
     }
