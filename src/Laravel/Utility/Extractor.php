@@ -63,6 +63,7 @@ class Extractor extends ExtractorAbstract
         $options = $this->getExtractorOptions();
         $requestValues = [];
         if ($options['request']['enabled'] === true) {
+            $requestValues['requestObject'] = $request;
             $requestValues['requestParams'] = $request->all();
             $requestValues['eTags'] = $request->getETags();
             $requestValues['defaultLocale'] = $request->getDefaultLocale();
