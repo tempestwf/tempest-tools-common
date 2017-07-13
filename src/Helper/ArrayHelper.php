@@ -160,7 +160,7 @@ class ArrayHelper implements \TempestTools\Common\Contracts\ArrayHelper
      * @return mixed
      */
     public function parseClosure(Closure $closure, array $extra=[]) {
-        return $closure($this, $extra);
+        return $closure($extra, $this);
     }
 
     /**
