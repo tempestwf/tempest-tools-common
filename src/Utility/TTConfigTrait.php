@@ -128,16 +128,7 @@ trait TTConfigTrait
      */
     public function highLowSettingCheck($high, array $low = NULL, string $setting){
         $highSet = isset($high[$setting]) ?? $high[$setting];
-        $lowSet = $low !== NULL && isset($low[$setting]) ?? $high[$setting];
-        if ($lowSet !== NULL ) {
-            return $lowSet;
-        }
-
-        if ($highSet !== NULL) {
-            return $highSet;
-        }
-
-        return NULL;
+        return $low !== NULL && isset($low[$setting]) ? $low[$setting]:$highSet;
     }
 
 
