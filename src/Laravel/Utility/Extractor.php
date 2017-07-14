@@ -54,6 +54,7 @@ class Extractor extends ExtractorAbstract
      * Returns values array with a top level key. Used to get data that will be stored on a array helper array.
      *
      * @return array
+     * @throws \RuntimeException
      * @throws \UnexpectedValueException
      * @throws \LogicException
      */
