@@ -18,15 +18,15 @@ class ArrayHelper implements \TempestTools\Common\Contracts\ArrayHelper
     const ERRORS = [
         'stringPathDoesNotStartWith'=>
             [
-                'message'=>'Error: string passed to parseStringPath does not start with path separator',
+                'message'=>'Error: string passed to parseStringPath does not start with path separator. path= %s.',
             ],
         'circularInheritanceDetected'=>
             [
-                'message'=>'Error: Circular inheritance detected in array',
+                'message'=>'Error: Circular inheritance detected in array. extends = %s.',
             ],
         'notExtractable'=>
             [
-                'message'=>'Error: object passed to extract method does not implement the Extractable interface',
+                'message'=>'Error: object passed to extract method does not implement the Extractable interface. Class name = %s.',
             ],
     ];
 
@@ -107,7 +107,7 @@ class ArrayHelper implements \TempestTools\Common\Contracts\ArrayHelper
         $array = $array ?? new ArrayObject();
         foreach ($objects as $object) {
             if (!$object instanceof Extractable) {
-                throw new \RuntimeException($this->getErrorFromConstant('notExtractable')['message']);
+                throw new \RuntimeException(sprintf($this->getErrorFromConstant('notExtractable')['message'], get_class($object)));
             }
             $extracted = $object->extractValues();
             foreach ($extracted as  $key => $value){
@@ -240,7 +240,7 @@ class ArrayHelper implements \TempestTools\Common\Contracts\ArrayHelper
                 $targetExtends = $target[static::EXTENDS_KEY];
                 array_splice($extendsList,$n+1,0,$targetExtends);
                 if (count($extendsList) !== count(array_count_values($extendsList))) {
-                    throw new \RuntimeException($this->getErrorFromConstant('circularInheritanceDetected')['message']);
+                    throw new \RuntimeException(sprintf($this->getErrorFromConstant('circularInheritanceDetected')['message'], json_encode($extendsList)));
                 }
             }
         }
@@ -305,7 +305,7 @@ class ArrayHelper implements \TempestTools\Common\Contracts\ArrayHelper
     public function parseStringPath(string $path, array $extra = [], bool $pathRequired=false, bool $parsePathResult = true) {
         $path = $this->trimFront($path);
         if ($path[0] !== static::PATH_SEPARATOR) {
-            throw new \RuntimeException($this->getErrorFromConstant('stringPathDoesNotStartWith')['message']);
+            throw new \RuntimeException(sprintf($this->getErrorFromConstant('stringPathDoesNotStartWith')['message'], $path));
         }
         $path = ltrim($path, static::PATH_SEPARATOR);
         $pathArray =  preg_split('/' . static::PATH_SEPARATOR . '/', $path);
