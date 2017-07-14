@@ -18,7 +18,7 @@ class ArrayHelper implements \TempestTools\Common\Contracts\ArrayHelper
     const ERRORS = [
         'stringPathDoesNotStartWith'=>
             [
-                'message'=>'Error: string passed to parseStringPath does not start with path separator. path= %s.',
+                'message'=>'Error: string passed to parseStringPath does not start with path separator. path = %s.',
             ],
         'circularInheritanceDetected'=>
             [
