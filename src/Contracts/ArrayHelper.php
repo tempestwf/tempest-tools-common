@@ -17,7 +17,6 @@ interface ArrayHelper
      * @param array $extra
      * @param bool $pathRequired
      * @param bool $parsePathResult
-     * @return
      */
     public function parse($value, array $extra=[], $pathRequired=false, $parsePathResult = true);
 
@@ -41,7 +40,6 @@ interface ArrayHelper
      * @param array $extra
      * @param bool $pathRequired
      * @param bool $parsePathResult
-     * @return
      */
     public function parseStringPath(string $path, array $extra = [], bool $pathRequired=false, bool $parsePathResult = true);
 
@@ -50,7 +48,6 @@ interface ArrayHelper
      * @param array $extra
      * @param bool $pathRequired
      * @param bool $parsePathResult
-     * @return
      */
     public function parseArrayPath(array $path, array $extra = [], bool $pathRequired=false, bool $parsePathResult = true);
 
@@ -65,7 +62,6 @@ interface ArrayHelper
      * @param array $extra
      * @param bool $pathRequired
      * @param bool $parsePathResult
-     * @return
      */
     public function findSetting(array $settings, string $key = NULL, bool $parse = true, array $extra=[], $pathRequired=false, $parsePathResult = true);
 

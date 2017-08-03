@@ -28,7 +28,7 @@ trait ArrayHelperTrait
     /**
      * @param null|ArrayHelperContract $arrayHelper
      */
-    public function setArrayHelper(ArrayHelperContract $arrayHelper)
+    public function setArrayHelper(ArrayHelperContract $arrayHelper): void
     {
         $this->arrayHelper = $arrayHelper;
     }

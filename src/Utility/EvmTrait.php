@@ -13,7 +13,7 @@ trait EvmTrait
     /**
      * @param EventManager|null $evm
      */
-    public function setEvm(EventManager $evm)
+    public function setEvm(EventManager $evm): void
     {
         $this->evm = $evm;
     }

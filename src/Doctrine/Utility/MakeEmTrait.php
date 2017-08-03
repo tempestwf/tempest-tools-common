@@ -34,7 +34,7 @@ trait MakeEmTrait
     /**
      * @param string $entityManagerClass
      */
-    public function setEntityManagerClass(string $entityManagerClass)
+    public function setEntityManagerClass(string $entityManagerClass): void
     {
         $this->entityManagerClass = $entityManagerClass;
     }

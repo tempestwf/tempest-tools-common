@@ -58,7 +58,7 @@ trait TTConfigTrait
     /**
      * @param array $ttPath
      */
-    public function setTTPath(array $ttPath)
+    public function setTTPath(array $ttPath): void
     {
         $this->ttPath = $ttPath;
     }
@@ -66,7 +66,7 @@ trait TTConfigTrait
     /**
      * @param array $ttFallBack
      */
-    public function setTTFallBack(array $ttFallBack)
+    public function setTTFallBack(array $ttFallBack): void
     {
         $this->ttFallBack = $ttFallBack;
     }
@@ -98,7 +98,7 @@ trait TTConfigTrait
     /**
      * @param ArrayHelperContract $configArrayHelper
      */
-    public function setConfigArrayHelper(ArrayHelperContract $configArrayHelper)
+    public function setConfigArrayHelper(ArrayHelperContract $configArrayHelper): void
     {
         $this->configArrayHelper = $configArrayHelper;
     }

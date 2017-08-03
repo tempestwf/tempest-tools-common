@@ -24,7 +24,7 @@ trait ValidationFactoryTrait
     /**
      * @param NULL|ValidationFactoryHelperContract $validationFactoryHelper
      */
-    public function setValidationFactoryHelper(ValidationFactoryHelperContract $validationFactoryHelper)
+    public function setValidationFactoryHelper(ValidationFactoryHelperContract $validationFactoryHelper): void
     {
         $this->validationFactoryHelper = $validationFactoryHelper;
     }

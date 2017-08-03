@@ -14,7 +14,7 @@ trait EmTrait
     /**
      * @param EntityManager $em
      */
-    public function setEm(EntityManager $em)
+    public function setEm(EntityManager $em): void
     {
         $this->em = $em;
     }

@@ -12,7 +12,7 @@ trait ExtractorOptionsTrait
     /**
      * @param array $options
      */
-    public function setExtractorOptions(array $options)
+    public function setExtractorOptions(array $options): void
     {
         $this->extractorOptions = $options;
     }
