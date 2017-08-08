@@ -136,7 +136,7 @@ class ArrayHelper implements \TempestTools\Common\Contracts\ArrayHelper
         }
 
         if (is_array($value)) {
-         return $this->parseInheritance($value);
+            return $this->parseInheritance($value);
         }
 
         if (is_string($value) && $value[0] === static::TRIGGER_STRING_PARSE) {
