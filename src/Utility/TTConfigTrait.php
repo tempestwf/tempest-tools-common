@@ -132,5 +132,20 @@ trait TTConfigTrait
     }
 
 
+    /** @noinspection MoreThanThreeArgumentsInspection */
+    /**
+     * Common logic for checking if the permissive settings allow something to be don
+     * @param array|\ArrayObject $high
+     * @param array $low
+     * @return bool
+     */
+    public function permissiveAllowedCheck ($high, array $low):bool {
+        $highPermissive = $high['permissive'] ?? true;
+        $allowed = $low !== NULL && isset($low['allowed']) ? $low['allowed']:$highPermissive;
+
+        return $allowed;
+    }
+
+
 
 }
