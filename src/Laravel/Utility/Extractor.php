@@ -11,6 +11,7 @@ use TempestTools\Common\Utility\ExtractorAbstract;
 class Extractor extends ExtractorAbstract
 {
     const EXTRACTOR_KEY_NAME = 'frameworkExtracted';
+
     /**
      * @var array $options
      */

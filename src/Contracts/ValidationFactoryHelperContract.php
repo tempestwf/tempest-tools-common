@@ -11,7 +11,7 @@ namespace TempestTools\Common\Contracts;
 
 use \Illuminate\Contracts\Validation\Factory;
 
-interface ValidationFactoryHelper
+interface ValidationFactoryHelperContract
 {
 
     public function getValidationFactory(): Factory;

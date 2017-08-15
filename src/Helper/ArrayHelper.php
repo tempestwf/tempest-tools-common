@@ -4,10 +4,11 @@ namespace TempestTools\Common\Helper;
 
 use ArrayObject;
 use Closure;
-use TempestTools\Common\Contracts\Extractable;
+use TempestTools\Common\Contracts\ArrayHelperContract;
+use TempestTools\Common\Contracts\ExtractableContract;
 use TempestTools\Common\Utility\ErrorConstantsTrait;
 
-class ArrayHelper implements \TempestTools\Common\Contracts\ArrayHelper
+class ArrayHelper implements ArrayHelperContract
 {
     use ErrorConstantsTrait;
 
@@ -106,7 +107,7 @@ class ArrayHelper implements \TempestTools\Common\Contracts\ArrayHelper
         $array = $this->getArray();
         $array = $array ?? new ArrayObject();
         foreach ($objects as $object) {
-            if (!$object instanceof Extractable) {
+            if (!$object instanceof ExtractableContract) {
                 throw new \RuntimeException(sprintf($this->getErrorFromConstant('notExtractable')['message'], get_class($object)));
             }
             $extracted = $object->extractValues();
@@ -359,9 +360,9 @@ class ArrayHelper implements \TempestTools\Common\Contracts\ArrayHelper
 
     /**
      * @param ArrayObject $array
-     * @return \TempestTools\Common\Contracts\ArrayHelper
+     * @return ArrayHelperContract
      */
-    public function setArray(ArrayObject $array = NULL): \TempestTools\Common\Contracts\ArrayHelper
+    public function setArray(ArrayObject $array = NULL): ArrayHelperContract
     {
         $this->array = $array;
         return $this;

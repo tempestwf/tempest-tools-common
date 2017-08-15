@@ -3,9 +3,9 @@
 namespace TempestTools\Common\Utility;
 
 
-use TempestTools\Common\Contracts\Extractable;
+use TempestTools\Common\Contracts\ExtractableContract;
 
-abstract class ExtractorAbstract implements Extractable
+abstract class ExtractorAbstract implements ExtractableContract
 {
     use ExtractorOptionsTrait;
 

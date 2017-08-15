@@ -2,7 +2,7 @@
 
 namespace TempestTools\Common\Utility;
 
-use TempestTools\Common\Contracts\ValidationFactoryHelper as ValidationFactoryHelperContract;
+use TempestTools\Common\Contracts\ValidationFactoryHelperContract;
 
 
 trait ValidationFactoryTrait

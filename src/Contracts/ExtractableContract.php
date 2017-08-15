@@ -2,7 +2,7 @@
 
 namespace TempestTools\Common\Contracts;
 
-interface Extractable
+interface ExtractableContract
 {
 
     /**

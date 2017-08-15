@@ -5,7 +5,7 @@ namespace TempestTools\Common\Contracts;
 use ArrayObject;
 use Closure;
 
-interface ArrayHelper
+interface ArrayHelperContract
 {
 
     public function __construct(ArrayObject $array =  NULL);
@@ -51,7 +51,7 @@ interface ArrayHelper
      */
     public function parseArrayPath(array $path, array $extra = [], bool $pathRequired=false, bool $parsePathResult = true);
 
-    public function setArray(ArrayObject $array = NULL): ArrayHelper;
+    public function setArray(ArrayObject $array = NULL): ArrayHelperContract;
 
     public function getArray(): ?ArrayObject;
 
