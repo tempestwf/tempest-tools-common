@@ -4,7 +4,6 @@ namespace TempestTools\Common\Helper;
 
 use \TempestTools\Common\Contracts\ArrayHelperContract;
 
-
 trait ArrayHelperTrait
 {
     /**
