@@ -10,7 +10,7 @@ namespace TempestTools\Common\Laravel\Validation;
 
 
 use Illuminate\Contracts\Validation\Factory;
-use TempestTools\Common\Contracts\ValidationFactoryHelperContract as ValidationFactoryHelperContract;
+use TempestTools\Common\Contracts\ValidationFactoryHelperContract;
 
 class ValidationFactoryHelper implements ValidationFactoryHelperContract
 {
