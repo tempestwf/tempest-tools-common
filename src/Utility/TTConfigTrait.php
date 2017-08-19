@@ -3,11 +3,14 @@
 namespace TempestTools\Common\Utility;
 
 use ArrayObject;
+use TempestTools\Common\Contracts\ArrayHelperContract;
 use TempestTools\Common\Helper\ArrayHelper;
+use TempestTools\Common\Helper\ArrayHelperTrait;
 
 trait TTConfigTrait
 {
 
+    use ArrayHelperTrait, ErrorConstantsTrait;
     /**
      * @var array $ttPath
      */
@@ -143,6 +146,48 @@ trait TTConfigTrait
         $allowed = $low !== NULL && isset($low['allowed']) ? $low['allowed']:$highPermissive;
 
         return $allowed;
+    }
+
+    /** @noinspection MoreThanThreeArgumentsInspection */
+
+    /**
+     * @param ArrayHelperContract|null $arrayHelper
+     * @param array|null $path
+     * @param array|null $fallBack
+     * @param bool $force
+     * @param string|null $mode
+     * @throws \RuntimeException
+     * @return bool
+     */
+    public function coreInit (ArrayHelperContract $arrayHelper = NULL, array $path=NULL, array $fallBack=NULL, bool $force= true, string $mode = null):bool
+    {
+        $updated = false;
+        if ($arrayHelper !== null && ($force === true || $this->getArrayHelper() === null)) {
+            $updated= true;
+            $this->setArrayHelper($arrayHelper);
+        }
+
+        if ($path !== null && ($force === true || $this->getTTPath() === null || $path !== $this->getTTPath())) {
+            $updated= true;
+            if ($mode !== null) {
+                $path[] = $mode;
+            }
+            $this->setTTPath($path);
+        }
+
+        if ($fallBack !== null && ($force === true || $this->getTTFallBack() === null || $fallBack !== $this->getTTFallBack() )) {
+            $updated= true;
+            $this->setTTFallBack($fallBack);
+            if ($mode !== null) {
+                $path[] = $mode;
+            }
+            $this->setTTFallBack($path);
+        }
+
+        if (!$this->getArrayHelper() instanceof ArrayHelperContract) {
+            throw new \RuntimeException($this->getErrorFromConstant('noArrayHelper'));
+        }
+        return $updated;
     }
 
 

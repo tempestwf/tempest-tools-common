@@ -91,7 +91,7 @@ class ArrayHelper implements ArrayHelperContract
      *
      * @param ArrayObject|null $array
      */
-    public function __construct(ArrayObject $array =  NULL)
+    public function __construct(ArrayObject $array = NULL)
     {
         $this->setArray($array);
     }
