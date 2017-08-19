@@ -185,7 +185,7 @@ trait TTConfigTrait
         }
 
         if (!$this->getArrayHelper() instanceof ArrayHelperContract) {
-            throw new \RuntimeException($this->getErrorFromConstant('noArrayHelper'));
+            throw new \RuntimeException('Error: No array helper on entity.');
         }
         return $updated;
     }
