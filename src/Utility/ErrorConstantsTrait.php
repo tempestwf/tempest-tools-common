@@ -2,7 +2,7 @@
 
 namespace TempestTools\Common\Utility;
 
-use TempestTools\Common\Exceptions\ErrorConstantsException;
+use TempestTools\Common\Exceptions\Utility\ErrorConstantsException;
 
 trait ErrorConstantsTrait
 {

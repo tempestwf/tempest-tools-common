@@ -6,7 +6,7 @@
  * Time: 6:52 PM
  */
 
-namespace TempestTools\Common\Exceptions;
+namespace TempestTools\Common\Exceptions\Utility;
 
 
 class TTConfigException extends \RunTimeException

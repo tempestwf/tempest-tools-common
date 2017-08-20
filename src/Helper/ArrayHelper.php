@@ -7,7 +7,7 @@ use Closure;
 use TempestTools\Common\Contracts\ArrayExpressionContract;
 use TempestTools\Common\Contracts\ArrayHelperContract;
 use TempestTools\Common\Contracts\ExtractableContract;
-use TempestTools\Common\Exceptions\ArrayHelperException;
+use TempestTools\Common\Exceptions\Helper\ArrayHelperException;
 
 class ArrayHelper implements ArrayHelperContract
 {
@@ -82,7 +82,7 @@ class ArrayHelper implements ArrayHelperContract
      *
      * @param array $objects
      * @return ArrayObject
-     * @throws \TempestTools\Common\Exceptions\ArrayHelperException
+     * @throws \TempestTools\Common\Exceptions\Helper\ArrayHelperException
      */
     public function extract(array $objects):ArrayObject {
         $array = $this->getArray();

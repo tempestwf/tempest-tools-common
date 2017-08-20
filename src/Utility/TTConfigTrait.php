@@ -4,7 +4,7 @@ namespace TempestTools\Common\Utility;
 
 use ArrayObject;
 use TempestTools\Common\Contracts\ArrayHelperContract;
-use TempestTools\Common\Exceptions\TTConfigException;
+use TempestTools\Common\Exceptions\Utility\TTConfigException;
 use TempestTools\Common\Helper\ArrayHelper;
 use TempestTools\Common\Helper\ArrayHelperTrait;
 
