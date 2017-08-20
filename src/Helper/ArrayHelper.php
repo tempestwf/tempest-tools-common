@@ -4,6 +4,7 @@ namespace TempestTools\Common\Helper;
 
 use ArrayObject;
 use Closure;
+use TempestTools\Common\Contracts\ArrayExpressionContract;
 use TempestTools\Common\Contracts\ArrayHelperContract;
 use TempestTools\Common\Contracts\ExtractableContract;
 use TempestTools\Common\Utility\ErrorConstantsTrait;
@@ -122,7 +123,6 @@ class ArrayHelper implements ArrayHelperContract
 
     /**
      * Automatically detects what operations should be run on a value and then runs them.
-     * Remember to put ? at the strong of any string you want to be automatically handled by this method.
      *
      * @param mixed $value
      * @param array $extra
@@ -132,6 +132,14 @@ class ArrayHelper implements ArrayHelperContract
      * @throws \RuntimeException
      */
     public function parse($value, array $extra=[], $pathRequired=false, $parsePathResult = true){
+        if (is_scalar($value)) {
+            return $value;
+        }
+
+        if ($value instanceof ArrayExpressionContract) {
+            return $this->parseArrayExpression($value, $extra, $pathRequired, $parsePathResult);
+        }
+
         if ($value instanceof Closure) {
             return $this->parseClosure($value, $extra);
         }
@@ -139,18 +147,20 @@ class ArrayHelper implements ArrayHelperContract
         if (is_array($value)) {
             return $this->parseInheritance($value);
         }
-
-        if (is_string($value) && $value[0] === static::TRIGGER_STRING_PARSE) {
-            $value = $this->trimFront($value);
-            if ($value[0] === static::PATH_SEPARATOR) {
-                return $this->parseStringPath($value, $extra, $pathRequired, $parsePathResult);
-            }
-
-            return $this->parseTemplate($value, $extra, $pathRequired, $parsePathResult);
-        }
-
         return $value;
+    }
 
+    /** @noinspection MoreThanThreeArgumentsInspection */
+
+    /**
+     * @param ArrayExpressionContract $value
+     * @param array $extra
+     * @param bool $pathRequired
+     * @param bool $parsePathResult
+     * @return mixed
+     */
+    public function parseArrayExpression (ArrayExpressionContract $value, array $extra=[], $pathRequired=false, $parsePathResult = true) {
+        return $value->parse($this, $extra, $pathRequired, $parsePathResult);
     }
 
     /**
@@ -271,7 +281,6 @@ class ArrayHelper implements ArrayHelperContract
      * @throws \RuntimeException
      */
     public function parseTemplate(string $template, array $extra=[], bool $pathRequired=false, bool $parsePathResult = true):string{
-        $template = $this->trimFront($template);
         preg_match_all(static::PLACEHOLDER_REGEX, $template, $matches);
         $replacements =  [];
         $patterns = [];
@@ -304,7 +313,6 @@ class ArrayHelper implements ArrayHelperContract
      * @throws \RuntimeException
      */
     public function parseStringPath(string $path, array $extra = [], bool $pathRequired=false, bool $parsePathResult = true) {
-        $path = $this->trimFront($path);
         if ($path[0] !== static::PATH_SEPARATOR) {
             throw new \RuntimeException(sprintf($this->getErrorFromConstant('stringPathDoesNotStartWith')['message'], $path));
         }
@@ -349,14 +357,6 @@ class ArrayHelper implements ArrayHelperContract
         return $parsePathResult === true ? $this->parse($result, $extra, $pathRequired, $parsePathResult): $result;
     }
 
-    /**
-     * Trims the ? from the front of a a string
-     * @param string $value
-     * @return string
-     */
-    protected function trimFront(string $value):string {
-        return ltrim($value, static::TRIGGER_STRING_PARSE);
-    }
 
     /**
      * @param ArrayObject $array
