@@ -7,30 +7,10 @@ use Closure;
 use TempestTools\Common\Contracts\ArrayExpressionContract;
 use TempestTools\Common\Contracts\ArrayHelperContract;
 use TempestTools\Common\Contracts\ExtractableContract;
-use TempestTools\Common\Utility\ErrorConstantsTrait;
+use TempestTools\Common\Exceptions\ArrayHelperException;
 
 class ArrayHelper implements ArrayHelperContract
 {
-    use ErrorConstantsTrait;
-
-    /**
-     * @var array ERRORS
-     * A constant that stores the errors that can be returned by the class
-     */
-    const ERRORS = [
-        'stringPathDoesNotStartWith'=>
-            [
-                'message'=>'Error: string passed to parseStringPath does not start with path separator. path = %s.',
-            ],
-        'circularInheritanceDetected'=>
-            [
-                'message'=>'Error: Circular inheritance detected in array. extends = %s.',
-            ],
-        'notExtractable'=>
-            [
-                'message'=>'Error: object passed to extract method does not implement the Extractable interface. Class name = %s.',
-            ],
-    ];
 
     /**
      * The source array used by other methods of the class
@@ -102,14 +82,14 @@ class ArrayHelper implements ArrayHelperContract
      *
      * @param array $objects
      * @return ArrayObject
-     * @throws \RuntimeException
+     * @throws \TempestTools\Common\Exceptions\ArrayHelperException
      */
     public function extract(array $objects):ArrayObject {
         $array = $this->getArray();
         $array = $array ?? new ArrayObject();
         foreach ($objects as $object) {
             if (!$object instanceof ExtractableContract) {
-                throw new \RuntimeException(sprintf($this->getErrorFromConstant('notExtractable')['message'], get_class($object)));
+                throw ArrayHelperException::notExtractable(get_class($object));
             }
             $extracted = $object->extractValues();
             foreach ($extracted as  $key => $value){
@@ -251,7 +231,7 @@ class ArrayHelper implements ArrayHelperContract
                 $targetExtends = $target[static::EXTENDS_KEY];
                 array_splice($extendsList,$n+1,0,$targetExtends);
                 if (count($extendsList) !== count(array_count_values($extendsList))) {
-                    throw new \RuntimeException(sprintf($this->getErrorFromConstant('circularInheritanceDetected')['message'], json_encode($extendsList)));
+                    throw ArrayHelperException::circularInheritanceDetected(json_encode($extendsList));
                 }
             }
         }
@@ -314,7 +294,7 @@ class ArrayHelper implements ArrayHelperContract
      */
     public function parseStringPath(string $path, array $extra = [], bool $pathRequired=false, bool $parsePathResult = true) {
         if ($path[0] !== static::PATH_SEPARATOR) {
-            throw new \RuntimeException(sprintf($this->getErrorFromConstant('stringPathDoesNotStartWith')['message'], $path));
+            throw ArrayHelperException::stringPathDoesNotStartWith($path);
         }
         $path = ltrim($path, static::PATH_SEPARATOR);
         $pathArray =  preg_split('/' . static::PATH_SEPARATOR . '/', $path);

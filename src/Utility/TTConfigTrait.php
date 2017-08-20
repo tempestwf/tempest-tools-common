@@ -4,6 +4,7 @@ namespace TempestTools\Common\Utility;
 
 use ArrayObject;
 use TempestTools\Common\Contracts\ArrayHelperContract;
+use TempestTools\Common\Exceptions\TTConfigException;
 use TempestTools\Common\Helper\ArrayHelper;
 use TempestTools\Common\Helper\ArrayHelperTrait;
 
@@ -156,7 +157,7 @@ trait TTConfigTrait
      * @param array|null $fallBack
      * @param bool $force
      * @param string|null $mode
-     * @throws \RuntimeException
+     * @throws TTConfigException
      * @return bool
      */
     public function coreInit (ArrayHelperContract $arrayHelper = NULL, array $path=NULL, array $fallBack=NULL, bool $force= true, string $mode = null):bool
@@ -185,7 +186,7 @@ trait TTConfigTrait
         }
 
         if (!$this->getArrayHelper() instanceof ArrayHelperContract) {
-            throw new \RuntimeException('Error: No array helper on entity.');
+            throw TTConfigException::stringPathDoesNotStartWith();
         }
         return $updated;
     }
