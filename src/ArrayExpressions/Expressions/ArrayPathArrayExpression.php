@@ -6,27 +6,27 @@
  * Time: 5:54 PM
  */
 
-namespace TempestTools\Common\ArrayExpressions;
+namespace TempestTools\Common\ArrayExpressions\Expressions;
 
 
 use TempestTools\Common\Contracts\ArrayExpressionContract;
 use TempestTools\Common\Contracts\ArrayHelperContract;
 
-class ClosureArrayExpression implements ArrayExpressionContract
+class ArrayPathArrayExpression implements ArrayExpressionContract
 {
     /**
-     * @var \Closure $closure
+     * @var array $path
      */
-    protected $closure;
+    protected $path;
 
     /**
      * TemplateArrayExpression constructor.
      *
-     * @param \Closure $closure
+     * @param array $path
      */
-    public function __construct(\Closure $closure)
+    public function __construct(array $path)
     {
-        $this->setClosure($closure);
+        $this->setPath($path);
     }
 
     /** @noinspection MoreThanThreeArgumentsInspection */
@@ -41,23 +41,23 @@ class ClosureArrayExpression implements ArrayExpressionContract
      */
     public function parse(ArrayHelperContract $arrayHelper, array $extra=[], $pathRequired=false, $parsePathResult = true)
     {
-        return $arrayHelper->parseClosure($this->getClosure(), $extra);
+        return $arrayHelper->parseArrayPath($this->getPath(), $extra, $pathRequired, $parsePathResult);
     }
 
     /**
-     * @return \Closure
+     * @return array
      */
-    public function getClosure(): \Closure
+    public function getPath(): array
     {
-        return $this->closure;
+        return $this->path;
     }
 
     /**
-     * @param \Closure $closure
+     * @param array $path
      */
-    public function setClosure(\Closure $closure):void
+    public function setPath(array $path):void
     {
-        $this->closure = $closure;
+        $this->path = $path;
     }
 
 

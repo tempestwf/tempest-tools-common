@@ -6,27 +6,27 @@
  * Time: 5:54 PM
  */
 
-namespace TempestTools\Common\ArrayExpressions;
+namespace TempestTools\Common\ArrayExpressions\Expressions;
 
 
 use TempestTools\Common\Contracts\ArrayExpressionContract;
 use TempestTools\Common\Contracts\ArrayHelperContract;
 
-class ArrayInheritanceArrayExpression implements ArrayExpressionContract
+class StringPathArrayExpression implements ArrayExpressionContract
 {
     /**
-     * @var array $array
+     * @var string $path
      */
-    protected $array;
+    protected $path;
 
     /**
      * TemplateArrayExpression constructor.
      *
-     * @param array $path
+     * @param string $path
      */
-    public function __construct(array $path)
+    public function __construct(string $path)
     {
-        $this->setArray($path);
+        $this->setPath($path);
     }
 
     /** @noinspection MoreThanThreeArgumentsInspection */
@@ -41,23 +41,23 @@ class ArrayInheritanceArrayExpression implements ArrayExpressionContract
      */
     public function parse(ArrayHelperContract $arrayHelper, array $extra=[], $pathRequired=false, $parsePathResult = true)
     {
-        return $arrayHelper->parseInheritance($this->getArray());
+        return $arrayHelper->parseStringPath($this->getPath(), $extra, $pathRequired, $parsePathResult);
     }
 
     /**
-     * @return array
+     * @return string
      */
-    public function getArray(): array
+    public function getPath(): string
     {
-        return $this->array;
+        return $this->path;
     }
 
     /**
-     * @param array $array
+     * @param string $path
      */
-    public function setArray(array $array):void
+    public function setPath(string $path):void
     {
-        $this->array = $array;
+        $this->path = $path;
     }
 
 

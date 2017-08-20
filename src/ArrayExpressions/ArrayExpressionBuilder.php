@@ -9,6 +9,12 @@
 namespace TempestTools\Common\ArrayExpressions;
 
 
+use TempestTools\Common\ArrayExpressions\Expressions\ArrayInheritanceArrayExpression;
+use TempestTools\Common\ArrayExpressions\Expressions\ArrayPathArrayExpression;
+use TempestTools\Common\ArrayExpressions\Expressions\ClosureArrayExpression;
+use TempestTools\Common\ArrayExpressions\Expressions\StringPathArrayExpression;
+use TempestTools\Common\ArrayExpressions\Expressions\TemplateArrayExpression;
+
 class ArrayExpressionBuilder
 {
     /**

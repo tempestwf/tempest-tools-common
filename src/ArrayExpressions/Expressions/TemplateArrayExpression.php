@@ -6,7 +6,7 @@
  * Time: 5:54 PM
  */
 
-namespace TempestTools\Common\ArrayExpressions;
+namespace TempestTools\Common\ArrayExpressions\Expressions;
 
 
 use TempestTools\Common\Contracts\ArrayExpressionContract;
