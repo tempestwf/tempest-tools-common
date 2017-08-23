@@ -166,7 +166,8 @@ trait TTConfigTrait
             $this->setArrayHelper($arrayHelper);
         }
 
-        if ($path !== null && ($force === true || $this->getTTPath() === null || $path !== $this->getTTPath())) {
+        $lastPath = $this->getTTPath();
+        if ($path !== null && ($force === true || $lastPath  === null || $path !== $lastPath)) {
             $updated= true;
             if ($mode !== null) {
                 $path[] = $mode;
@@ -174,13 +175,13 @@ trait TTConfigTrait
             $this->setTTPath($path);
         }
 
-        if ($fallBack !== null && ($force === true || $this->getTTFallBack() === null || $fallBack !== $this->getTTFallBack() )) {
+        $lastFallBack = $this->getTTFallBack();
+        if ($fallBack !== null && ($force === true || $lastFallBack === null || $fallBack !== $lastFallBack )) {
             $updated= true;
-            $this->setTTFallBack($fallBack);
             if ($mode !== null) {
-                $path[] = $mode;
+                $fallBack[] = $mode;
             }
-            $this->setTTFallBack($path);
+            $this->setTTFallBack($fallBack);
         }
 
         if (!$this->getArrayHelper() instanceof ArrayHelperContract) {

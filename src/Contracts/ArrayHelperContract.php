@@ -75,7 +75,8 @@ interface ArrayHelperContract
      * @param array $extra
      * @param bool $pathRequired
      * @param bool $parsePathResult
+     * @param bool $parse
      * @return bool
      */
-    public function testEnforceValues (array $values, array $enforce, array $extra=[], $pathRequired=false, $parsePathResult = true):bool;
+    public function testEnforceValues (array $values, array $enforce, array $extra=[], $pathRequired=false, $parsePathResult = true, $parse = true):bool;
 }

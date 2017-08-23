@@ -418,14 +418,15 @@ class ArrayHelper implements ArrayHelperContract
      * @param array $extra
      * @param bool $pathRequired
      * @param bool $parsePathResult
+     * @param bool $parse
      * @return bool
      * @throws \RuntimeException
      */
-    public function testEnforceValues (array $values, array $enforce, array $extra=[], $pathRequired=false, $parsePathResult = true):bool {
+    public function testEnforceValues (array $values, array $enforce, array $extra=[], $pathRequired=false, $parsePathResult = true, $parse = true):bool {
         $allowed = true;
         foreach ($enforce as $key => $value) {
             /** @noinspection NullPointerExceptionInspection */
-            if ($values[$key] !== $this->parse($value, $extra, $pathRequired, $parsePathResult)) {
+            if ($values[$key] !== ($parse === true?$this->parse($value, $extra, $pathRequired, $parsePathResult):$value)) {
                 $allowed = false;
                 break;
             }
