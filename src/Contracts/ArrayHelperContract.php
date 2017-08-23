@@ -69,5 +69,13 @@ interface ArrayHelperContract
 
     public function isNumeric(array $array, $fast = true): bool;
 
-    public function testEnforceValues (array $values, array $enforce, array $extra=[]):bool;
+    /** @noinspection MoreThanThreeArgumentsInspection
+     * @param array $values
+     * @param array $enforce
+     * @param array $extra
+     * @param bool $pathRequired
+     * @param bool $parsePathResult
+     * @return bool
+     */
+    public function testEnforceValues (array $values, array $enforce, array $extra=[], $pathRequired=false, $parsePathResult = true):bool;
 }

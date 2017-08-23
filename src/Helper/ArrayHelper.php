@@ -410,24 +410,29 @@ class ArrayHelper implements ArrayHelperContract
 
         return array_keys($array) !== range(0, count($array) - 1);
     }
+    /** @noinspection MoreThanThreeArgumentsInspection */
 
     /**
      * @param array $values
      * @param array $enforce
      * @param array $extra
+     * @param bool $pathRequired
+     * @param bool $parsePathResult
      * @return bool
      * @throws \RuntimeException
      */
-    public function testEnforceValues (array $values, array $enforce, array $extra=[]):bool {
+    public function testEnforceValues (array $values, array $enforce, array $extra=[], $pathRequired=false, $parsePathResult = true):bool {
         $allowed = true;
         foreach ($enforce as $key => $value) {
             /** @noinspection NullPointerExceptionInspection */
-            if ($values[$key] !== $this->parse($value, $extra)) {
+            if ($values[$key] !== $this->parse($value, $extra, $pathRequired, $parsePathResult)) {
                 $allowed = false;
                 break;
             }
         }
         return $allowed;
     }
+
+
 
 }

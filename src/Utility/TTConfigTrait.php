@@ -118,9 +118,7 @@ trait TTConfigTrait
     public function permissivePermissionCheck ($high, array $low, string $canDo, string $target):bool {
         $highPermissive = $high['permissive'] ?? true;
         $allowed = $low !== NULL && isset($low['permissive']) ? $low['permissive']:$highPermissive;
-        $allowed = $low[$canDo][$target] ?? $allowed;
-
-        return $allowed;
+        return $low[$canDo][$target] ?? $allowed;
     }
 
     /**
