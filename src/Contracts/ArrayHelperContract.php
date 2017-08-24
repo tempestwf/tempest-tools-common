@@ -169,7 +169,9 @@ interface ArrayHelperContract
     /**
      * @return ArrayObject
      */
-    public function getArray(): ArrayObject;/** @noinspection MoreThanThreeArgumentsInspection */
+    public function getArray(): ?ArrayObject;
+
+    /** @noinspection MoreThanThreeArgumentsInspection */
 
     /**
      * Finds the right most occurrence of a setting in the settings array, parses it if requested, and returns it.
@@ -202,7 +204,9 @@ interface ArrayHelperContract
      * @param bool $fast
      * @return bool
      */
-    public function isNumeric(array $array, $fast = true): bool;/** @noinspection MoreThanThreeArgumentsInspection */
+    public function isNumeric(array $array, $fast = true): bool;
+
+    /** @noinspection MoreThanThreeArgumentsInspection */
 
     /**
      * @param array $values
