@@ -8,8 +8,6 @@ use Closure;
 interface ArrayHelperContract
 {
 
-    public function __construct(ArrayObject $array =  NULL);
-
     public function extract(array $objects):ArrayObject;
 
     /** @noinspection MoreThanThreeArgumentsInspection

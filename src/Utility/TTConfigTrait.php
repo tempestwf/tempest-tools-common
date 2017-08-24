@@ -11,7 +11,7 @@ use TempestTools\Common\Helper\ArrayHelperTrait;
 trait TTConfigTrait
 {
 
-    use ArrayHelperTrait, ErrorConstantsTrait;
+    use ArrayHelperTrait;
     /**
      * @var array $ttPath
      */
@@ -91,17 +91,17 @@ trait TTConfigTrait
     }
 
     /**
-     * @return NULL|ArrayHelper
+     * @return NULL|ArrayHelperContract
      */
-    public function getConfigArrayHelper():?ArrayHelper
+    public function getConfigArrayHelper():?ArrayHelperContract
     {
         return $this->configArrayHelper;
     }
 
     /**
-     * @param ArrayHelper $configArrayHelper
+     * @param ArrayHelperContract $configArrayHelper
      */
-    public function setConfigArrayHelper(ArrayHelper $configArrayHelper): void
+    public function setConfigArrayHelper(ArrayHelperContract $configArrayHelper): void
     {
         $this->configArrayHelper = $configArrayHelper;
     }
