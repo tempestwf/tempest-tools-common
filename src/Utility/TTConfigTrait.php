@@ -35,7 +35,7 @@ trait TTConfigTrait
      * @return array
      * @throws \RuntimeException
      */
-    public function parseTTConfig(ArrayHelperContract $substituteArrayHelper = NULL):array
+    protected function parseTTConfig(ArrayHelperContract $substituteArrayHelper = NULL):array
     {
         $config = $this->getTTConfig();
         $path = $this->getTTPath();
@@ -158,7 +158,7 @@ trait TTConfigTrait
      * @throws TTConfigException
      * @return bool
      */
-    public function coreInit (ArrayHelperContract $arrayHelper = NULL, array $path=NULL, array $fallBack=NULL, bool $force= true, string $mode = null):bool
+    protected function coreInit (ArrayHelperContract $arrayHelper = NULL, array $path=NULL, array $fallBack=NULL, bool $force= true, string $mode = null):bool
     {
         $updated = false;
         if ($arrayHelper !== null && ($force === true || $this->getArrayHelper() === null)) {
