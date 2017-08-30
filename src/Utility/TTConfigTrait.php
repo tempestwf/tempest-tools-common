@@ -41,8 +41,8 @@ trait TTConfigTrait
         $path = $this->getTTPath();
         $fallBack = $this->getTTFallBack();
         $arrayHelper = $substituteArrayHelper === NULL?new ArrayHelper(new ArrayObject($config)):$substituteArrayHelper->setArray(new ArrayObject($config));
-        $target = $arrayHelper->parseArrayPath($path);
-        $target = $target ?? $arrayHelper->parseArrayPath($fallBack);
+        $target = $arrayHelper->parseArrayPath($path, [], false, false);
+        $target = $target ?? $arrayHelper->parseArrayPath($fallBack, [], false, false);
         $result = $arrayHelper->parseInheritance($target);
         $arrayHelper->setArray(new ArrayObject($result));
         $this->setConfigArrayHelper($arrayHelper);
