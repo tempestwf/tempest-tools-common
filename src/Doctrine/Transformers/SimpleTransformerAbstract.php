@@ -10,9 +10,11 @@ namespace TempestTools\Common\Doctrine\Transformers;
 
 
 use Doctrine\Common\Collections\Collection;
+use Exception;
+use TempestTools\Common\Contracts\Doctrine\Transformers\SimpleTransformerContract;
 use TempestTools\Crud\Contracts\Orm\EntityContract;
 use Doctrine\Common\Proxy\Proxy;
-use TempestTools\Common\Contracts\Orm\Transformers\SimpleTransformerContract;
+
 
 abstract class SimpleTransformerAbstract implements SimpleTransformerContract
 {
@@ -43,17 +45,17 @@ abstract class SimpleTransformerAbstract implements SimpleTransformerContract
         {
             try
             {
-                if($entity->__isInitialized() === FALSE)
+                if($entity->__isInitialized() === true)
                 {
                     $entity->__load();
                 }
-            } catch(\Exception $ex)
+            } catch(Exception $ex)
             {
-                return FALSE;
+                return false;
             }
         }
 
-        return TRUE;
+        return true;
     }
 
     /**

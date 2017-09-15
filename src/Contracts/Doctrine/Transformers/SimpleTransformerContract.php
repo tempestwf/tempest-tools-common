@@ -6,7 +6,7 @@
  * Time: 3:51 PM
  */
 
-namespace TempestTools\Common\Contracts\Orm\Transformers;
+namespace TempestTools\Common\Contracts\Doctrine\Transformers;
 
 use Doctrine\Common\Collections\Collection;
 use TempestTools\Crud\Contracts\Orm\EntityContract;

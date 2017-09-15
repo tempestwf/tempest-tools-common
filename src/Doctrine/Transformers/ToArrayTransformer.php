@@ -1,7 +1,8 @@
 <?php
 
+namespace TempestTools\Common\Doctrine\Transformers;
+
 use TempestTools\Crud\Contracts\Orm\EntityContract;
-use TempestTools\Common\Doctrine\Transformers\SimpleTransformerAbstract;
 
 /**
  * Created by PhpStorm.
