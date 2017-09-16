@@ -43,6 +43,9 @@ trait TTConfigTrait
         $arrayHelper = $substituteArrayHelper === NULL?new ArrayHelper(new ArrayObject($config)):$substituteArrayHelper->setArray(new ArrayObject($config));
         $target = $arrayHelper->parseArrayPath($path, [], false, false);
         $target = $target ?? $arrayHelper->parseArrayPath($fallBack, [], false, false);
+        if ($target === null) {
+            $breakHere = null;
+        }
         $result = $arrayHelper->parseInheritance($target);
         $arrayHelper->setArray(new ArrayObject($result));
         $this->setConfigArrayHelper($arrayHelper);
@@ -170,7 +173,12 @@ trait TTConfigTrait
         if ($path !== null && ($force === true || $lastPath  === null || $path !== $lastPath)) {
             $updated= true;
             if ($mode !== null) {
-                $path[] = $mode;
+                if (count($path) > 1) {
+                    $path[1] = $mode;
+                } else {
+                    $path[] = $mode;
+                }
+
             }
             $this->setTTPath($path);
         }
@@ -179,7 +187,11 @@ trait TTConfigTrait
         if ($fallBack !== null && ($force === true || $lastFallBack === null || $fallBack !== $lastFallBack )) {
             $updated= true;
             if ($mode !== null) {
-                $fallBack[] = $mode;
+                if (count($fallBack) > 1) {
+                    $fallBack[1] = $mode;
+                } else {
+                    $fallBack[] = $mode;
+                }
             }
             $this->setTTFallBack($fallBack);
         }
