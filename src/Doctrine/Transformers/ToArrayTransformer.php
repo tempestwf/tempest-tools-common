@@ -16,10 +16,17 @@ class ToArrayTransformer extends SimpleTransformerAbstract {
     /**
      * @param EntityContract $entity
      * @return array
-     * @throws \RuntimeException
      */
     public function convert(EntityContract $entity):array
     {
-        return $entity->toArray();
+        $settings = $this->getSettings();
+        $defaultMode = $settings['defaultMode'] ?? 'read';
+        $defaultArrayHelper = $settings['defaultArrayHelper'] ?? null;
+        $defaultPath = $settings['defaultPath'] ?? null;
+        $defaultFallBack = $settings['defaultFallBack'] ?? null;
+        $force = $settings['force'] ?? false;
+        $frontEndOptions = $settings['frontEndOptions'] ?? [];
+
+        return $entity->toArray($defaultMode, $defaultArrayHelper, $defaultPath, $defaultFallBack, $force, $frontEndOptions);
     }
 }

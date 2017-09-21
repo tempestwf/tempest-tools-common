@@ -18,10 +18,24 @@ use Doctrine\Common\Proxy\Proxy;
 
 abstract class SimpleTransformerAbstract implements SimpleTransformerContract
 {
+
+    protected $settings = [];
+
     /**
      * @param EntityContract $entity
+     * @return mixed
      */
     abstract public function convert (EntityContract $entity);
+
+    /**
+     * SimpleTransformerAbstract constructor.
+     *
+     * @param array $settings
+     */
+    public function __construct(array $settings = [])
+    {
+        $this->setSettings($settings);
+    }
 
     /**
      * @param $entity
@@ -37,9 +51,10 @@ abstract class SimpleTransformerAbstract implements SimpleTransformerContract
 
     /**
      * @param EntityContract $entity
+     * @param array|null $extra
      * @return bool
      */
-    public function verifyItem(EntityContract $entity): bool
+    public function verifyItem(EntityContract $entity, array $extra = null): bool
     {
         if($entity instanceof Proxy)
         {
@@ -103,6 +118,24 @@ abstract class SimpleTransformerAbstract implements SimpleTransformerContract
             return $this->collection($subject);
         }
         return null;
+    }
+
+    /**
+     * @param array $settings
+     * @return SimpleTransformerContract
+     */
+    public function setSettings(array $settings): SimpleTransformerContract
+    {
+        $this->settings = $settings;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getSettings(): array
+    {
+        return $this->settings;
     }
 
 

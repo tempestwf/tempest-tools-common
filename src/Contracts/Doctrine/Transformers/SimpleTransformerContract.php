@@ -13,8 +13,17 @@ use TempestTools\Crud\Contracts\Orm\EntityContract;
 
 interface SimpleTransformerContract
 {
+
+    /**
+     * SimpleTransformerContract constructor.
+     *
+     * @param array $settings
+     */
+    public function __construct(array $settings = []);
+
     /**
      * @param EntityContract $entity
+     * @return mixed
      */
     public function convert(EntityContract $entity);
 
@@ -39,7 +48,6 @@ interface SimpleTransformerContract
     /**
      * @param array $array
      * @return array
-     * @internal param Collection $collection
      */
     public function array(array $array): array;
 
@@ -48,4 +56,15 @@ interface SimpleTransformerContract
      * @return mixed
      */
     public function transform($subject);
+
+    /**
+     * @return array
+     */
+    public function getSettings():array;
+
+    /**
+     * @param array $settings
+     * @return SimpleTransformerContract
+     */
+    public function setSettings(array $settings): SimpleTransformerContract;
 }
