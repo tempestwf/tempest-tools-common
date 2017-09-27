@@ -16,6 +16,14 @@ class CommonMiddlewareException extends \RunTimeException
      */
     public static function controllerDoesNotImplementHasArrayHelperContract (): CommonMiddlewareException
     {
-        return new self (sprintf('Error: BasicDataExtractor used on a controller that does not implement the HasArrayHelperContract'));
+        return new self (sprintf('Error: Middleware used on a controller that does not implement the HasArrayHelperContract'));
+    }
+
+    /**
+     * @return CommonMiddlewareException
+     */
+    public static function controllerDoesNotImplementHasUserContract (): CommonMiddlewareException
+    {
+        return new self (sprintf('Error: Middleware used on a controller that does not implement the HasUserContract'));
     }
 }
