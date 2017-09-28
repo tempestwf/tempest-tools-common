@@ -12,18 +12,11 @@ namespace TempestTools\Common\Exceptions\Laravel\Http\Middleware;
 class CommonMiddlewareException extends \RunTimeException
 {
     /**
+     * @param string $interface
      * @return CommonMiddlewareException
      */
-    public static function controllerDoesNotImplementHasArrayHelperContract (): CommonMiddlewareException
+    public static function controllerDoesNotImplement(string $interface): CommonMiddlewareException
     {
-        return new self (sprintf('Error: Middleware used on a controller that does not implement the HasArrayHelperContract'));
-    }
-
-    /**
-     * @return CommonMiddlewareException
-     */
-    public static function controllerDoesNotImplementHasUserContract (): CommonMiddlewareException
-    {
-        return new self (sprintf('Error: Middleware used on a controller that does not implement the HasUserContract'));
+        return new self (sprintf('Error: Middleware used on a controller that does not implement the %s', $interface));
     }
 }

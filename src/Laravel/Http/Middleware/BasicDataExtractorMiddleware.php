@@ -18,7 +18,7 @@ use TempestTools\Common\Helper\ArrayHelper;
 use TempestTools\Common\Laravel\Utility\Extractor;
 
 
-class BasicDataExtractor
+class BasicDataExtractorMiddleware
 {
     /**
      * Handle an incoming request.
@@ -33,7 +33,7 @@ class BasicDataExtractor
         $controller = $request->route()->getController();
 
         if ($controller instanceof HasArrayHelperContract === false) {
-            throw CommonMiddlewareException::controllerDoesNotImplementHasArrayHelperContract();
+            throw CommonMiddlewareException::controllerDoesNotImplement('HasArrayHelperContract');
         }
 
         $arrayHelper = $controller->getArrayHelper() ?? new ArrayHelper();
