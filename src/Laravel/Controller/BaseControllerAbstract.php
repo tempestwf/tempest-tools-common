@@ -9,9 +9,9 @@ use TempestTools\Common\Contracts\HasArrayHelperContract;
 use TempestTools\Common\Helper\ArrayHelperTrait;
 use Illuminate\Support\Facades\Event;
 use TempestTools\Common\Utility\TTConfigTrait;
-use TempestTools\Crud\Contracts\HasPathAndFallBackContract;
+use TempestTools\Crud\Contracts\HasTTConfig;
 
-abstract class BaseControllerAbstract extends Controller implements HasArrayHelperContract, HasPathAndFallBackContract
+abstract class BaseControllerAbstract extends Controller implements HasArrayHelperContract, HasTTConfig
 {
     use ArrayHelperTrait, TTConfigTrait;
 
