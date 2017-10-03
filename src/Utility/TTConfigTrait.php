@@ -43,6 +43,9 @@ trait TTConfigTrait
         $arrayHelper = $substituteArrayHelper === NULL?new ArrayHelper(new ArrayObject($config)):$substituteArrayHelper->setArray(new ArrayObject($config));
         $target = $arrayHelper->parseArrayPath($path, [], false, false);
         $target = $target ?? $arrayHelper->parseArrayPath($fallBack, [], false, false);
+        if ($target === null) {
+            throw TTConfigException::pathAndFallBackNotFound($path, $fallBack);
+        }
         $result = $arrayHelper->parseInheritance($target);
         $arrayHelper->setArray(new ArrayObject($result));
         $this->setConfigArrayHelper($arrayHelper);
@@ -194,7 +197,7 @@ trait TTConfigTrait
         }
 
         if (!$this->getArrayHelper() instanceof ArrayHelperContract) {
-            throw TTConfigException::stringPathDoesNotStartWith();
+            throw TTConfigException::noArrayHelperFound();
         }
         return $updated;
     }
