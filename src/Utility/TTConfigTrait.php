@@ -23,9 +23,51 @@ trait TTConfigTrait
     protected $ttFallBack;
 
     /**
+     * @var array $ttPath
+     */
+    protected $ttPathNoMode;
+
+    /**
+     * @var array $ttFallBack
+     */
+    protected $ttFallBackNoMode;
+
+    /**
      * @var ArrayHelper|NULL $configArrayHelper;
      */
     protected $configArrayHelper;
+
+    /**
+     * @return array
+     */
+    public function getTTPathNoMode(): array
+    {
+        return $this->ttPathNoMode;
+    }
+
+    /**
+     * @param array $ttPathNoMode
+     */
+    public function setTTPathNoMode(array $ttPathNoMode):void
+    {
+        $this->ttPathNoMode = $ttPathNoMode;
+    }
+
+    /**
+     * @return array
+     */
+    public function getTTFallBackNoMode(): array
+    {
+        return $this->ttFallBackNoMode;
+    }
+
+    /**
+     * @param array $ttFallBackNoMode
+     */
+    public function setTTFallBackNoMode(array $ttFallBackNoMode):void
+    {
+        $this->ttFallBackNoMode = $ttFallBackNoMode;
+    }
 
     /**
      * Tags a config and a path, gets the element in the path in the config, and then uses an array helper to parse
@@ -173,6 +215,7 @@ trait TTConfigTrait
         if ($path !== null && ($force === true || $lastPath  === null || $path !== $lastPath)) {
             $updated= true;
             if ($mode !== null) {
+                $this->setTTPathNoMode($path);
                 if (count($path) > 1) {
                     $path[1] = $mode;
                 } else {
@@ -187,6 +230,7 @@ trait TTConfigTrait
         if ($fallBack !== null && ($force === true || $lastFallBack === null || $fallBack !== $lastFallBack )) {
             $updated= true;
             if ($mode !== null) {
+                $this->setTTFallBackNoMode($fallBack);
                 if (count($fallBack) > 1) {
                     $fallBack[1] = $mode;
                 } else {
