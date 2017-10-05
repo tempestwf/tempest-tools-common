@@ -29,6 +29,14 @@ class TTConfigException extends \RunTimeException
         return new self (sprintf('Error: Path and fall back not found in config. path = %s, fall back = %s', json_encode($path), json_encode($fallback)));
     }
 
+    /**
+     * @param string $mode
+     * @return TTConfigException
+     */
+    public static function modeNotRecognized (string $mode): TTConfigException
+    {
+        return new self (sprintf('Error: Mode selected for config is not supported. mode = %s', $mode));
+    }
 
 }
 

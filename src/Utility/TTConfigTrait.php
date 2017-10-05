@@ -70,6 +70,12 @@ trait TTConfigTrait
     }
 
     /**
+     * @return array
+     */
+    abstract public function getAvailableModes(): array;
+
+
+    /**
      * Tags a config and a path, gets the element in the path in the config, and then uses an array helper to parse
      * it's inheritance. Sets the result on parsedConfig property
      *
@@ -205,6 +211,10 @@ trait TTConfigTrait
      */
     protected function coreInit (ArrayHelperContract $arrayHelper = NULL, array $path=NULL, array $fallBack=NULL, bool $force= true, string $mode = null):bool
     {
+        if ($mode !== null && in_array($mode, $this->getAvailableModes(), true) === false) {
+            throw TTConfigException::modeNotRecognized($mode);
+        }
+
         $updated = false;
         if ($arrayHelper !== null && ($force === true || $this->getArrayHelper() === null)) {
             $updated= true;
@@ -216,8 +226,8 @@ trait TTConfigTrait
             $updated= true;
             if ($mode !== null) {
                 $this->setTTPathNoMode($path);
-                if (count($path) > 1) {
-                    $path[1] = $mode;
+                if (in_array(end($path), $this->getAvailableModes(), true)) {
+                    $path[count($path) - 1] = $mode;
                 } else {
                     $path[] = $mode;
                 }
@@ -231,8 +241,8 @@ trait TTConfigTrait
             $updated= true;
             if ($mode !== null) {
                 $this->setTTFallBackNoMode($fallBack);
-                if (count($fallBack) > 1) {
-                    $fallBack[1] = $mode;
+                if (in_array(end($fallBack), $this->getAvailableModes(), true)) {
+                    $fallBack[count($fallBack) - 1] = $mode;
                 } else {
                     $fallBack[] = $mode;
                 }
