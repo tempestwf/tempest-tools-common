@@ -5,12 +5,13 @@ namespace TempestTools\Common\Laravel\Utility;
 use App;
 use Config;
 use Illuminate\Http\Request;
+use TempestTools\Common\Constants\CommonArrayObjectKeyConstants;
 use TempestTools\Common\Utility\ExtractorAbstract;
 
 
 class Extractor extends ExtractorAbstract
 {
-    const EXTRACTOR_KEY_NAME = 'frameworkExtracted';
+
     /** @noinspection ClassOverridesFieldOfSuperClassInspection */
     /**
      * @var array $options
@@ -149,7 +150,7 @@ class Extractor extends ExtractorAbstract
         }
 
         return [
-            static::EXTRACTOR_KEY_NAME=>[
+            CommonArrayObjectKeyConstants::FRAMEWORK_KEY_NAME=>[
                 'request'=>$requestValues,
                 'route'=>$routeValues,
                 'config'=>$config,

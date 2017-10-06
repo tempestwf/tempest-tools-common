@@ -9,7 +9,9 @@
 namespace TempestTools\Common\Exceptions\Helper;
 
 
-class ArrayHelperException extends \RunTimeException
+use RunTimeException;
+
+class ArrayHelperException extends RunTimeException
 {
     /**
      * @param string $path
