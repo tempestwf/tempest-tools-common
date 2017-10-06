@@ -39,7 +39,7 @@ abstract class TTArrayObjectAbstract extends ArrayObject
      * @param mixed $key
      * @throws \TempestTools\Common\Exceptions\ArrayObject\ArrayObjectException
      */
-    protected function checkForFixedValue($key) {
+    protected function validateKey($key) {
         $currentValue = $this->offsetGet($key);
         if ($currentValue !== null && $currentValue !== [] && in_array($key, $this->getFixed(), true)) {
             throw ArrayObjectException::keyIsFixed($key);
@@ -48,6 +48,7 @@ abstract class TTArrayObjectAbstract extends ArrayObject
 
     /**
      * Sets the value at the specified index to newval
+     *
      * @link http://php.net/manual/en/arrayobject.offsetset.php
      * @param mixed $index <p>
      * The index being set.
@@ -56,22 +57,27 @@ abstract class TTArrayObjectAbstract extends ArrayObject
      * The new value for the <i>index</i>.
      * </p>
      * @return void
+     * @throws \TempestTools\Common\Exceptions\ArrayObject\ArrayObjectException
      * @since 5.0.0
      */
     public function offsetSet($index, $newval) {
+        $this->validateKey($index);
         parent::offsetSet($index, $newval);
     }
 
     /**
      * Unsets the value at the specified index
+     *
      * @link http://php.net/manual/en/arrayobject.offsetunset.php
      * @param mixed $index <p>
      * The index being unset.
      * </p>
      * @return void
+     * @throws \TempestTools\Common\Exceptions\ArrayObject\ArrayObjectException
      * @since 5.0.0
      */
     public function offsetUnset($index) {
+        $this->validateKey($index);
         parent::offsetUnset($index);
     }
 

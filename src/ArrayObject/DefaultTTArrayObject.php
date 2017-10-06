@@ -25,7 +25,7 @@ class DefaultTTArrayObject extends TTArrayObjectAbstract
 
     /** @var array  */
     protected /** @noinspection ClassOverridesFieldOfSuperClassInspection */ $fixed = [
-        CommonArrayObjectKeyConstants::FRAMEWORK_KEY_NAME=>[],
-        CommonArrayObjectKeyConstants::USER_KEY_NAME=>null,
+        CommonArrayObjectKeyConstants::FRAMEWORK_KEY_NAME,
+        CommonArrayObjectKeyConstants::USER_KEY_NAME,
     ];
 }
