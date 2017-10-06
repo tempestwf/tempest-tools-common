@@ -37,9 +37,10 @@ abstract class TTArrayObjectAbstract extends ArrayObject
 
     /**
      * @param mixed $key
+     * @param null $newval
      * @throws \TempestTools\Common\Exceptions\ArrayObject\ArrayObjectException
      */
-    protected function validateKey($key) {
+    protected function validateKey($key, $newval= null) {
         $currentValue = $this->offsetGet($key);
         if ($currentValue !== null && $currentValue !== [] && in_array($key, $this->getFixed(), true)) {
             throw ArrayObjectException::keyIsFixed($key);
@@ -61,7 +62,7 @@ abstract class TTArrayObjectAbstract extends ArrayObject
      * @since 5.0.0
      */
     public function offsetSet($index, $newval) {
-        $this->validateKey($index);
+        $this->validateKey($index, $newval);
         parent::offsetSet($index, $newval);
     }
 
