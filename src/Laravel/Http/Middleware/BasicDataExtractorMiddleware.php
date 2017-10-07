@@ -10,6 +10,7 @@ namespace TempestTools\Common\Laravel\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use TempestTools\Common\ArrayObject\DefaultTTArrayObject;
 use TempestTools\Common\Contracts\ArrayHelperContract;
 use TempestTools\Common\Contracts\HasArrayHelperContract;
 use TempestTools\Common\Contracts\HasUserContract;
@@ -36,7 +37,7 @@ class BasicDataExtractorMiddleware
             throw CommonMiddlewareException::controllerDoesNotImplement('HasArrayHelperContract');
         }
 
-        $arrayHelper = $controller->getArrayHelper() ?? new ArrayHelper();
+        $arrayHelper = $controller->getArrayHelper() ?? new ArrayHelper(new DefaultTTArrayObject());
 
         $this->extractPrimary($request, $arrayHelper, $controller);
         $this->extractAdditional($request, $arrayHelper, $controller);
