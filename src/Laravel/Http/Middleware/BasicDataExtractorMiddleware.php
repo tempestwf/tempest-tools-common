@@ -39,7 +39,7 @@ class BasicDataExtractorMiddleware
             throw CommonMiddlewareException::controllerDoesNotImplement('HasArrayHelperContract');
         }
 
-        $arrayHelper =  $clearExistingArrayHelper === true?null:$controller->getArrayHelper();
+        $arrayHelper = $clearExistingArrayHelper === true?null:$controller->getArrayHelper();
         $arrayHelper = $arrayHelper ?? new ArrayHelper(new DefaultTTArrayObject());
 
         $this->extractPrimary($request, $arrayHelper, $controller);
