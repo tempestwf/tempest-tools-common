@@ -32,12 +32,15 @@ class BasicDataExtractorMiddleware
     public function handle(Request $request, Closure $next)
     {
         $controller = $request->route()->getController();
+        $actions = $request->route()->getAction();
+        $clearExistingArrayHelper = $actions['clearExistingArrayHelper'] ?? true;
 
         if ($controller instanceof HasArrayHelperContract === false) {
             throw CommonMiddlewareException::controllerDoesNotImplement('HasArrayHelperContract');
         }
 
-        $arrayHelper = $controller->getArrayHelper() ?? new ArrayHelper(new DefaultTTArrayObject());
+        $arrayHelper =  $clearExistingArrayHelper === true?null:$controller->getArrayHelper();
+        $arrayHelper = $arrayHelper ?? new ArrayHelper(new DefaultTTArrayObject());
 
         $this->extractPrimary($request, $arrayHelper, $controller);
         $this->extractAdditional($request, $arrayHelper, $controller);
