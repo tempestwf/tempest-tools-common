@@ -123,17 +123,19 @@ class Extractor extends ExtractorAbstract
 
         $routeValues = [];
         if ($options['route']['enabled'] === true) {
-            $routeValues['actions'] = $request->route()->getAction();
-            $routeValues['uri'] = $request->route()->getUri();
-            $routeValues['path'] = $request->route()->getPath();
-            $routeValues['name'] = $request->route()->getName();
-            $routeValues['action'] = $request->route()->getAction();
-            $routeValues['actionName'] = $request->route()->getActionName();
-            $routeValues['methods'] = $request->route()->getMethods();
-            $routeValues['httpOnly'] = $request->route()->httpOnly();
-            $routeValues['httpsOnly'] = $request->route()->httpsOnly();
-            $routeValues['secure'] = $request->route()->secure();
-            $routeValues['domain'] = $request->route()->domain();
+            $route = $request->route();
+            $routeValues['actions'] = $route->getAction();
+            $routeValues['uri'] = $route->getUri();
+            $routeValues['path'] = $route->getPath();
+            $routeValues['name'] = $route->getName();
+            $routeValues['action'] = $route->getAction();
+            $routeValues['actionName'] = $route->getActionName();
+            $routeValues['methods'] = $route->getMethods();
+            $routeValues['httpOnly'] = $route->httpOnly();
+            $routeValues['httpsOnly'] = $route->httpsOnly();
+            $routeValues['secure'] = $route->secure();
+            $routeValues['domain'] = $route->domain();
+            $routeValues['parameters'] = $route->parameters();
         }
         $config = [];
         if ($options['config']['enabled'] === true) {
