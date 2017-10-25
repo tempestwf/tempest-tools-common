@@ -8,9 +8,14 @@
 
 namespace TempestTools\Common\Exceptions\ArrayObject;
 
-
 use RunTimeException;
 
+/**
+ * Exception related to array objects
+ *
+ * @link    https://github.com/tempestwf
+ * @author  William Tempest Wright Ferrer <https://github.com/tempestwf>
+ */
 class ArrayObjectException extends RunTimeException
 {
     /**

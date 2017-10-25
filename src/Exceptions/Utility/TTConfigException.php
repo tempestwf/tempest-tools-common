@@ -8,7 +8,12 @@
 
 namespace TempestTools\Common\Exceptions\Utility;
 
-
+/**
+ * Exception related tempest tools configurations
+ *
+ * @link    https://github.com/tempestwf
+ * @author  William Tempest Wright Ferrer <https://github.com/tempestwf>
+ */
 class TTConfigException extends \RunTimeException
 {
     /**

@@ -11,8 +11,15 @@ namespace TempestTools\Common\Contracts;
 
 use \Illuminate\Contracts\Validation\Factory;
 
+/**
+ * @link    https://github.com/tempestwf
+ * @author  William Tempest Wright Ferrer <https://github.com/tempestwf>
+ */
 interface ValidationFactoryHelperContract
 {
 
+    /**
+     * @return Factory
+     */
     public function getValidationFactory(): Factory;
 }

@@ -12,6 +12,12 @@ namespace TempestTools\Common\ArrayExpressions\Expressions;
 use TempestTools\Common\Contracts\ArrayExpressionContract;
 use TempestTools\Common\Contracts\ArrayHelperContract;
 
+/**
+ * An array expression for parsing a closure.
+ *
+ * @link    https://github.com/tempestwf
+ * @author  William Tempest Wright Ferrer <https://github.com/tempestwf>
+ */
 class ClosureArrayExpression implements ArrayExpressionContract
 {
     /**
@@ -20,8 +26,6 @@ class ClosureArrayExpression implements ArrayExpressionContract
     protected $closure;
 
     /**
-     * TemplateArrayExpression constructor.
-     *
      * @param \Closure $closure
      */
     public function __construct(\Closure $closure)
@@ -33,6 +37,7 @@ class ClosureArrayExpression implements ArrayExpressionContract
 
     /**
      * Uses array helper to parse the data stored on the object
+     *
      * @param ArrayHelperContract $arrayHelper
      * @param array $extra
      * @param bool $pathRequired

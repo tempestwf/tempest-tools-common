@@ -12,6 +12,12 @@ namespace TempestTools\Common\ArrayExpressions\Expressions;
 use TempestTools\Common\Contracts\ArrayExpressionContract;
 use TempestTools\Common\Contracts\ArrayHelperContract;
 
+/**
+ * An array expression for parsing array inheritance
+ *
+ * @link    https://github.com/tempestwf
+ * @author  William Tempest Wright Ferrer <https://github.com/tempestwf>
+ */
 class ArrayInheritanceArrayExpression implements ArrayExpressionContract
 {
     /**
@@ -20,8 +26,6 @@ class ArrayInheritanceArrayExpression implements ArrayExpressionContract
     protected $array;
 
     /**
-     * TemplateArrayExpression constructor.
-     *
      * @param array $path
      */
     public function __construct(array $path)
@@ -33,11 +37,13 @@ class ArrayInheritanceArrayExpression implements ArrayExpressionContract
 
     /**
      * Uses array helper to parse the data stored on the object
+     *
      * @param ArrayHelperContract $arrayHelper
      * @param array $extra
      * @param bool $pathRequired
      * @param bool $parsePathResult
      * @return mixed
+     * @throws \RuntimeException
      */
     public function parse(ArrayHelperContract $arrayHelper, array $extra=[], $pathRequired=false, $parsePathResult = true)
     {

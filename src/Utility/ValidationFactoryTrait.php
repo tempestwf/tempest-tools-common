@@ -4,7 +4,12 @@ namespace TempestTools\Common\Utility;
 
 use TempestTools\Common\Contracts\ValidationFactoryHelperContract;
 
-
+/**
+ * A trait for getting and setting a validation factory on a class
+ *
+ * @link    https://github.com/tempestwf
+ * @author  William Tempest Wright Ferrer <https://github.com/tempestwf>
+ */
 trait ValidationFactoryTrait
 {
 

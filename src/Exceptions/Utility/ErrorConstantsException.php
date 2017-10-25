@@ -9,6 +9,12 @@
 namespace TempestTools\Common\Exceptions\Utility;
 
 
+/**
+ * Exception related error constants applied to a class via a trait.
+ *
+ * @link    https://github.com/tempestwf
+ * @author  William Tempest Wright Ferrer <https://github.com/tempestwf>
+ */
 class ErrorConstantsException extends \RunTimeException
 {
     /**

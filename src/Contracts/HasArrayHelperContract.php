@@ -8,7 +8,10 @@
 
 namespace TempestTools\Common\Contracts;
 
-
+/**
+ * @link    https://github.com/tempestwf
+ * @author  William Tempest Wright Ferrer <https://github.com/tempestwf>
+ */
 interface HasArrayHelperContract
 {
     /**
@@ -27,5 +30,8 @@ interface HasArrayHelperContract
      */
     public function getArrayHelper():?ArrayHelperContract;
 
+    /**
+     * @return ArrayHelperContract
+     */
     public function arrayHelper():ArrayHelperContract;
 }

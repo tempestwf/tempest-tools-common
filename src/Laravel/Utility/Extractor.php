@@ -8,7 +8,12 @@ use Illuminate\Http\Request;
 use TempestTools\Common\Constants\CommonArrayObjectKeyConstants;
 use TempestTools\Common\Utility\ExtractorAbstract;
 
-
+/**
+ * A class that extracts data about the framework and the environment and normalizes it into array structure.
+ *
+ * @link    https://github.com/tempestwf
+ * @author  William Tempest Wright Ferrer <https://github.com/tempestwf>
+ */
 class Extractor extends ExtractorAbstract
 {
 

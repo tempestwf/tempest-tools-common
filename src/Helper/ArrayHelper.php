@@ -9,6 +9,12 @@ use TempestTools\Common\Contracts\ArrayHelperContract;
 use TempestTools\Common\Contracts\ExtractableContract;
 use TempestTools\Common\Exceptions\Helper\ArrayHelperException;
 
+/**
+ * Array helper for special functionality related to arrays
+ *
+ * @link    https://github.com/tempestwf
+ * @author  William Tempest Wright Ferrer <https://github.com/tempestwf>
+ */
 class ArrayHelper implements ArrayHelperContract
 {
 
@@ -133,6 +139,7 @@ class ArrayHelper implements ArrayHelperContract
     /** @noinspection MoreThanThreeArgumentsInspection */
 
     /**
+     * Takes an array expression and parses it
      * @param ArrayExpressionContract $value
      * @param array $extra
      * @param bool $pathRequired
@@ -413,6 +420,7 @@ class ArrayHelper implements ArrayHelperContract
     /** @noinspection MoreThanThreeArgumentsInspection */
 
     /**
+     * Checks an array to to make sure the values in the enforced property match
      * @param array $values
      * @param array $enforce
      * @param array $extra

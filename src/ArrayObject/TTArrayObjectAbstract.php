@@ -12,12 +12,21 @@ namespace TempestTools\Common\ArrayObject;
 use ArrayObject;
 use TempestTools\Common\Exceptions\ArrayObject\ArrayObjectException;
 
+/**
+ * An abstract class that lets defaults be applied automatically to an array object, and also lets certain keys be fixed so they can't be changed again after set.
+ * @link    https://github.com/tempestwf
+ * @author  William Tempest Wright Ferrer <https://github.com/tempestwf>
+ */
 abstract class TTArrayObjectAbstract extends ArrayObject
 {
-    /** @var array $defaults */
+    /**
+     * @var array $defaults
+     */
     protected $defaults = [];
 
-    /** @var array  */
+    /**
+     * @var array
+     */
     protected $fixed = [];
 
     /**
@@ -36,6 +45,7 @@ abstract class TTArrayObjectAbstract extends ArrayObject
     }
 
     /**
+     * Validates a key to make sure is allowed to be changed
      * @param mixed $key
      * @param null $newval
      * @throws \TempestTools\Common\Exceptions\ArrayObject\ArrayObjectException
@@ -48,7 +58,7 @@ abstract class TTArrayObjectAbstract extends ArrayObject
     }
 
     /**
-     * Sets the value at the specified index to newval
+     * Sets the value at the specified index to newval. It also calls a validation method to make sure the key can be set.
      *
      * @link http://php.net/manual/en/arrayobject.offsetset.php
      * @param mixed $index <p>
@@ -67,7 +77,7 @@ abstract class TTArrayObjectAbstract extends ArrayObject
     }
 
     /**
-     * Unsets the value at the specified index
+     * Unsets the value at the specified index. It also calls a validation method to make sure the key can be set.
      *
      * @link http://php.net/manual/en/arrayobject.offsetunset.php
      * @param mixed $index <p>

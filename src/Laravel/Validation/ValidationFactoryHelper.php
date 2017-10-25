@@ -12,6 +12,12 @@ namespace TempestTools\Common\Laravel\Validation;
 use Illuminate\Contracts\Validation\Factory;
 use TempestTools\Common\Contracts\ValidationFactoryHelperContract;
 
+/**
+ * A helper class to get a validation factory
+ *
+ * @link    https://github.com/tempestwf
+ * @author  William Tempest Wright Ferrer <https://github.com/tempestwf>
+ */
 class ValidationFactoryHelper implements ValidationFactoryHelperContract
 {
     /**

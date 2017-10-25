@@ -5,6 +5,10 @@ namespace TempestTools\Common\Contracts;
 use ArrayObject;
 use Closure;
 
+/**
+ * @link    https://github.com/tempestwf
+ * @author  William Tempest Wright Ferrer <https://github.com/tempestwf>
+ */
 interface ArrayHelperContract
 {
 

@@ -11,6 +11,12 @@ namespace TempestTools\Common\Exceptions\Helper;
 
 use RunTimeException;
 
+/**
+ * Exception related to array helper
+ *
+ * @link    https://github.com/tempestwf
+ * @author  William Tempest Wright Ferrer <https://github.com/tempestwf>
+ */
 class ArrayHelperException extends RunTimeException
 {
     /**

@@ -19,6 +19,12 @@ use TempestTools\Common\Helper\ArrayHelper;
 use TempestTools\Common\Laravel\Utility\Extractor;
 
 
+/**
+ * A middleware that extracts data about the current request and environment, then normalizes and stores that information on an array helper for other classes to access.
+ *
+ * @link    https://github.com/tempestwf
+ * @author  William Tempest Wright Ferrer <https://github.com/tempestwf>
+ */
 class BasicDataExtractorMiddleware
 {
     /**
@@ -51,6 +57,7 @@ class BasicDataExtractorMiddleware
     }
 
     /**
+     * Extracts information about the request and the framework.
      * @param Request $request
      * @param ArrayHelperContract $arrayHelper
      * @param HasArrayHelperContract $controller
@@ -72,6 +79,7 @@ class BasicDataExtractorMiddleware
     }
 
     /**
+     * Uses closures set on the route to extract additional data.
      * @param Request $request
      * @param ArrayHelperContract $arrayHelper
      * @param HasArrayHelperContract $controller

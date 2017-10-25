@@ -8,9 +8,14 @@ use TempestTools\Common\Exceptions\Utility\TTConfigException;
 use TempestTools\Common\Helper\ArrayHelper;
 use TempestTools\Common\Helper\ArrayHelperTrait;
 
+/**
+ * A trait for adding Tempest Tools Configuration related convenience methods.
+ *
+ * @link    https://github.com/tempestwf
+ * @author  William Tempest Wright Ferrer <https://github.com/tempestwf>
+ */
 trait TTConfigTrait
 {
-
     use ArrayHelperTrait;
     /**
      * @var array $ttPath
@@ -70,6 +75,7 @@ trait TTConfigTrait
     }
 
     /**
+     * Get's the modes that are available to be used on the class. Modes are part of a Tempest Tools Config path.
      * @return array
      */
     abstract public function getAvailableModes(): array;
@@ -159,7 +165,7 @@ trait TTConfigTrait
 
     /** @noinspection MoreThanThreeArgumentsInspection */
     /**
-     * Common logic for checking if the permissive settings allow something to be don
+     * Common logic for checking if the permissive settings allow something to be done
      * @param array|\ArrayObject $high
      * @param array $low
      * @param string $canDo
@@ -173,6 +179,7 @@ trait TTConfigTrait
     }
 
     /**
+     * Common logic for checking if settings allow something to be done by looking at a high level settings and a lower more specific level setting.
      * @param array|\ArrayObject $high
      * @param array $low
      * @param string $setting
@@ -186,7 +193,7 @@ trait TTConfigTrait
 
     /** @noinspection MoreThanThreeArgumentsInspection */
     /**
-     * Common logic for checking if the permissive settings allow something to be don
+     * Common logic for checking if the permissive settings allow something to be done
      * @param array|\ArrayObject $high
      * @param array $low
      * @return bool
@@ -201,6 +208,7 @@ trait TTConfigTrait
     /** @noinspection MoreThanThreeArgumentsInspection */
 
     /**
+     * Initializes the configuration
      * @param ArrayHelperContract|null $arrayHelper
      * @param array|null $path
      * @param array|null $fallBack

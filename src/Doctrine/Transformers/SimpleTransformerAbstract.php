@@ -16,20 +16,27 @@ use TempestTools\Crud\Contracts\Orm\EntityContract;
 use Doctrine\Common\Proxy\Proxy;
 
 
+/**
+ * An abstract class for making simple transformers.
+ *
+ * @link    https://github.com/tempestwf
+ * @author  William Tempest Wright Ferrer <https://github.com/tempestwf>
+ */
 abstract class SimpleTransformerAbstract implements SimpleTransformerContract
 {
-
+    /**
+     * @var array
+     */
     protected $settings = [];
 
     /**
+     * Transforms an entity
      * @param EntityContract $entity
      * @return mixed
      */
     abstract public function convert (EntityContract $entity);
 
     /**
-     * SimpleTransformerAbstract constructor.
-     *
      * @param array $settings
      */
     public function __construct(array $settings = [])
@@ -38,10 +45,11 @@ abstract class SimpleTransformerAbstract implements SimpleTransformerContract
     }
 
     /**
-     * @param $entity
+     * Transforms a single item
+     * @param EntityContract $entity
      * @return mixed
      */
-    public function item ($entity)
+    public function item (EntityContract $entity)
     {
         if ($this->verifyItem($entity) === true) {
             return $this->convert($entity);
@@ -50,6 +58,7 @@ abstract class SimpleTransformerAbstract implements SimpleTransformerContract
     }
 
     /**
+     * Verifies that an entity is ok to convert. It also lazy loads as needed
      * @param EntityContract $entity
      * @param array|null $extra
      * @return bool
@@ -74,6 +83,7 @@ abstract class SimpleTransformerAbstract implements SimpleTransformerContract
     }
 
     /**
+     * Transforms a collect
      * @param Collection $collection
      * @return array
      */
@@ -87,6 +97,7 @@ abstract class SimpleTransformerAbstract implements SimpleTransformerContract
     }
 
     /**
+     * Transforms an array
      * @param array $array
      * @return array
      * @internal param Collection $collection
@@ -101,6 +112,7 @@ abstract class SimpleTransformerAbstract implements SimpleTransformerContract
     }
 
     /**
+     * Transforms an entity or collection
      * @param $subject
      * @return mixed
      */

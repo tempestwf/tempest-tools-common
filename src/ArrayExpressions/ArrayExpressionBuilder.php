@@ -15,6 +15,12 @@ use TempestTools\Common\ArrayExpressions\Expressions\ClosureArrayExpression;
 use TempestTools\Common\ArrayExpressions\Expressions\StringPathArrayExpression;
 use TempestTools\Common\ArrayExpressions\Expressions\TemplateArrayExpression;
 
+/**
+ * A builder that returns different array expressions providing an easy way to build array expressions
+ *
+ * @link    https://github.com/tempestwf
+ * @author  William Tempest Wright Ferrer <https://github.com/tempestwf>
+ */
 class ArrayExpressionBuilder
 {
     /**

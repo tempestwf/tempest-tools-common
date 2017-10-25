@@ -11,12 +11,14 @@ namespace TempestTools\Common\Contracts\Doctrine\Transformers;
 use Doctrine\Common\Collections\Collection;
 use TempestTools\Crud\Contracts\Orm\EntityContract;
 
+/**
+ * @link    https://github.com/tempestwf
+ * @author  William Tempest Wright Ferrer <https://github.com/tempestwf>
+ */
 interface SimpleTransformerContract
 {
 
     /**
-     * SimpleTransformerContract constructor.
-     *
      * @param array $settings
      */
     public function __construct(array $settings = []);
@@ -28,10 +30,10 @@ interface SimpleTransformerContract
     public function convert(EntityContract $entity);
 
     /**
-     * @param $entity
+     * @param EntityContract $entity
      * @return mixed
      */
-    public function item($entity);
+    public function item (EntityContract $entity);
 
     /**
      * @param EntityContract $entity

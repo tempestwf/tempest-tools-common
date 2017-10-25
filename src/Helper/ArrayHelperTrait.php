@@ -4,6 +4,12 @@ namespace TempestTools\Common\Helper;
 
 use \TempestTools\Common\Contracts\ArrayHelperContract;
 
+/**
+ * Trait that puts convenience methods related to array helpers on a class
+ *
+ * @link    https://github.com/tempestwf
+ * @author  William Tempest Wright Ferrer <https://github.com/tempestwf>
+ */
 trait ArrayHelperTrait
 {
     /**
