@@ -13,7 +13,7 @@ use TempestTools\Common\Contracts\ArrayExpressionContract;
 use TempestTools\Common\Contracts\ArrayHelperContract;
 
 /**
- * An array expression for parsing array paths. Which is to say an array that specifies a path in another array through it's array keys.
+ * An array expression for parsing array paths.
  *
  * @link    https://github.com/tempestwf
  * @author  William Tempest Wright Ferrer <https://github.com/tempestwf>

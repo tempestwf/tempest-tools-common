@@ -3,7 +3,7 @@
 namespace TempestTools\Common\Utility;
 
 /**
- * A trait setting and getting extractor options on a class.
+ * A trait for setting and getting extractor options on a class.
  *
  * @link    https://github.com/tempestwf
  * @author  William Tempest Wright Ferrer <https://github.com/tempestwf>

@@ -75,7 +75,7 @@ trait TTConfigTrait
     }
 
     /**
-     * Get's the modes that are available to be used on the class. Modes are part of a Tempest Tools Config path.
+     * Gets the modes that are available to be used on the class. Modes are part of a Tempest Tools Config path.
      * @return array
      */
     abstract public function getAvailableModes(): array;

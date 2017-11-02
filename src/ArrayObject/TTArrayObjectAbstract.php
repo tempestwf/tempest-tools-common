@@ -13,7 +13,7 @@ use ArrayObject;
 use TempestTools\Common\Exceptions\ArrayObject\ArrayObjectException;
 
 /**
- * An abstract class that lets defaults be applied automatically to an array object, and also lets certain keys be fixed so they can't be changed again after set.
+ * An abstract class that lets defaults be applied automatically to an array object, and also lets certain keys be fixed so they can't be changed again after first being set.
  * @link    https://github.com/tempestwf
  * @author  William Tempest Wright Ferrer <https://github.com/tempestwf>
  */

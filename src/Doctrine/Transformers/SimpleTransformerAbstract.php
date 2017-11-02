@@ -83,7 +83,7 @@ abstract class SimpleTransformerAbstract implements SimpleTransformerContract
     }
 
     /**
-     * Transforms a collect
+     * Transforms a collection
      * @param Collection $collection
      * @return array
      */

@@ -12,7 +12,7 @@ namespace TempestTools\Common\ArrayObject;
 use TempestTools\Common\Constants\CommonArrayObjectKeyConstants;
 
 /**
- * An array object that automatically populates it's self with Defaults, and makes sure that if some one tries to change a key in fixed after the fact it will through an Exception.
+ * An array object that automatically populates it's self with Defaults, and makes sure that if some one tries to change a key in fixed key after the fact it will throw an Exception.
  *
  * @link    https://github.com/tempestwf
  * @author  William Tempest Wright Ferrer <https://github.com/tempestwf>

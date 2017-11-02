@@ -151,7 +151,7 @@ class ArrayHelper implements ArrayHelperContract
     }
 
     /**
-     * Parses a closure and passes it $this
+     * Parses a closure and passes it $this and the extra data pased to the method.
      *
      * @param Closure $closure
      * @param array $extra
@@ -165,7 +165,7 @@ class ArrayHelper implements ArrayHelperContract
      * Looks at an array that has an "extends" key.
      * It calculates the full inheritance path by following the extends path set on the source that was passed,
      * that leads through the extends paths stored on the array attached to this class.
-     * Once it has the full path of extends calculated, it starts using array_replace to apply the values from the parts of the array referenced in the extends path.
+     * Once it has the full path of extends calculated, it starts using array_replace_recursive to apply the values from the parts of the array referenced in the extends path.
      * It then removes the extends property from the source array and puts in instead a: extended property that lists the path that was used for extension.
      *
      * @param array $source
@@ -192,7 +192,7 @@ class ArrayHelper implements ArrayHelperContract
     }
 
     /**
-     * Created the extends path used by parseInheritance. See that method for more details.
+     * Creates the extends path used by parseInheritance. See that method for more details.
      * Example:
      * With an array like so:
      * *[
@@ -282,7 +282,7 @@ class ArrayHelper implements ArrayHelperContract
 
 
     /**
-     * Gets an value from the array, using a : separated list of array keys passed in as a string. For instance
+     * Gets a value from the array, using a : separated list of array keys passed in as a string. For instance
      * ?:key1:subKey1:subKey2 would return "foo" from array:
      * [
      *  'key1' => [
@@ -310,7 +310,7 @@ class ArrayHelper implements ArrayHelperContract
     /** @noinspection MoreThanThreeArgumentsInspection */
 
     /**
-     * Gets an value from the array, using a array keys passed. For instance ['key1','subKey1','subKey2'] would return
+     * Gets a value from the array, using a array keys passed. For instance ['key1','subKey1','subKey2'] would return
      * "foo" from array:
      * [
      *  'key1' => [
@@ -404,7 +404,7 @@ class ArrayHelper implements ArrayHelperContract
     }
 
     /**
-     * Checks if an array is numeric or not, if fast is set to false it will use a more through but slightly slower method.
+     * Checks if an array is numeric or not, if fast is set to false it will use a more careful but slightly slower method.
      * @param array $array
      * @param bool $fast
      * @return bool
