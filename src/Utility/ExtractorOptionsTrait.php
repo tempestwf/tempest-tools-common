@@ -2,8 +2,12 @@
 
 namespace TempestTools\Common\Utility;
 
-use TempestTools\Common\Contracts\Extractable;
-
+/**
+ * A trait for setting and getting extractor options on a class.
+ *
+ * @link    https://github.com/tempestwf
+ * @author  William Tempest Wright Ferrer <https://github.com/tempestwf>
+ */
 trait ExtractorOptionsTrait
 {
     /**
@@ -13,18 +17,16 @@ trait ExtractorOptionsTrait
 
     /**
      * @param array $options
-     * @return Extractable|ExtractorOptionsTrait
      */
-    public function setExtractorOptions(array $options) : Extractable
+    public function setExtractorOptions(array $options): void
     {
         $this->extractorOptions = $options;
-        return $this;
     }
 
     /**
      * @return array
      */
-    public function getExtractorOptions(): array
+    public function getExtractorOptions(): ?array
     {
         return $this->extractorOptions;
     }

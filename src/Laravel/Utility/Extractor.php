@@ -5,12 +5,19 @@ namespace TempestTools\Common\Laravel\Utility;
 use App;
 use Config;
 use Illuminate\Http\Request;
+use TempestTools\Common\Constants\CommonArrayObjectKeyConstants;
 use TempestTools\Common\Utility\ExtractorAbstract;
 
-
+/**
+ * A class that extracts data about the framework and the environment and normalizes it into array structure.
+ *
+ * @link    https://github.com/tempestwf
+ * @author  William Tempest Wright Ferrer <https://github.com/tempestwf>
+ */
 class Extractor extends ExtractorAbstract
 {
-    const EXTRACTOR_KEY_NAME = 'frameworkExtracted';
+
+    /** @noinspection ClassOverridesFieldOfSuperClassInspection */
     /**
      * @var array $options
      */
@@ -54,6 +61,7 @@ class Extractor extends ExtractorAbstract
      * Returns values array with a top level key. Used to get data that will be stored on a array helper array.
      *
      * @return array
+     * @throws \RuntimeException
      * @throws \UnexpectedValueException
      * @throws \LogicException
      */
@@ -63,6 +71,7 @@ class Extractor extends ExtractorAbstract
         $options = $this->getExtractorOptions();
         $requestValues = [];
         if ($options['request']['enabled'] === true) {
+            $requestValues['requestObject'] = $request;
             $requestValues['requestParams'] = $request->all();
             $requestValues['eTags'] = $request->getETags();
             $requestValues['defaultLocale'] = $request->getDefaultLocale();
@@ -119,17 +128,19 @@ class Extractor extends ExtractorAbstract
 
         $routeValues = [];
         if ($options['route']['enabled'] === true) {
-            $routeValues['actions'] = $request->route()->getAction();
-            $routeValues['uri'] = $request->route()->getUri();
-            $routeValues['path'] = $request->route()->getPath();
-            $routeValues['name'] = $request->route()->getName();
-            $routeValues['action'] = $request->route()->getAction();
-            $routeValues['actionName'] = $request->route()->getActionName();
-            $routeValues['methods'] = $request->route()->getMethods();
-            $routeValues['httpOnly'] = $request->route()->httpOnly();
-            $routeValues['httpsOnly'] = $request->route()->httpsOnly();
-            $routeValues['secure'] = $request->route()->secure();
-            $routeValues['domain'] = $request->route()->domain();
+            $route = $request->route();
+            $routeValues['actions'] = $route->getAction();
+            $routeValues['uri'] = $route->getUri();
+            $routeValues['path'] = $route->getPath();
+            $routeValues['name'] = $route->getName();
+            $routeValues['action'] = $route->getAction();
+            $routeValues['actionName'] = $route->getActionName();
+            $routeValues['methods'] = $route->getMethods();
+            $routeValues['httpOnly'] = $route->httpOnly();
+            $routeValues['httpsOnly'] = $route->httpsOnly();
+            $routeValues['secure'] = $route->secure();
+            $routeValues['domain'] = $route->domain();
+            $routeValues['parameters'] = $route->parameters();
         }
         $config = [];
         if ($options['config']['enabled'] === true) {
@@ -146,7 +157,7 @@ class Extractor extends ExtractorAbstract
         }
 
         return [
-            static::EXTRACTOR_KEY_NAME=>[
+            CommonArrayObjectKeyConstants::FRAMEWORK_KEY_NAME=>[
                 'request'=>$requestValues,
                 'route'=>$routeValues,
                 'config'=>$config,

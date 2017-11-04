@@ -4,6 +4,12 @@ namespace TempestTools\Common\Doctrine\Utility;
 
 use Doctrine\ORM\EntityManager;
 
+/**
+ * A trait that adds an entity manager to a class
+ *
+ * @link    https://github.com/tempestwf
+ * @author  William Tempest Wright Ferrer <https://github.com/tempestwf>
+ */
 trait MakeEmTrait
 {
     use EmTrait;
@@ -13,7 +19,7 @@ trait MakeEmTrait
     protected $entityManagerClass = EntityManager::class;
 
     /**
-     * returns or makes the em then returns it
+     * Returns or makes the em then returns it
      * @return EntityManager
      */
     public function em(): EntityManager
@@ -33,12 +39,10 @@ trait MakeEmTrait
 
     /**
      * @param string $entityManagerClass
-     * @return MakeEmTrait
      */
-    public function setEntityManagerClass(string $entityManagerClass)
+    public function setEntityManagerClass(string $entityManagerClass): void
     {
         $this->entityManagerClass = $entityManagerClass;
-        return $this;
     }
 
     /**

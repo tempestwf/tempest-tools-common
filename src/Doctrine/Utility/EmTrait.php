@@ -4,6 +4,12 @@ namespace TempestTools\Common\Doctrine\Utility;
 
 use Doctrine\ORM\EntityManager;
 
+/**
+ * A trait that lets a class get and set an entity manager
+ *
+ * @link    https://github.com/tempestwf
+ * @author  William Tempest Wright Ferrer <https://github.com/tempestwf>
+ */
 trait EmTrait
 {
     /**
@@ -13,12 +19,10 @@ trait EmTrait
 
     /**
      * @param EntityManager $em
-     * @return EmTrait
      */
-    public function setEm(EntityManager $em)
+    public function setEm(EntityManager $em): void
     {
         $this->em = $em;
-        return $this;
     }
 
     /**

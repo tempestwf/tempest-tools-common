@@ -2,7 +2,14 @@
 
 namespace TempestTools\Common\Helper;
 
+use \TempestTools\Common\Contracts\ArrayHelperContract;
 
+/**
+ * Trait that puts convenience methods related to array helpers on a class
+ *
+ * @link    https://github.com/tempestwf
+ * @author  William Tempest Wright Ferrer <https://github.com/tempestwf>
+ */
 trait ArrayHelperTrait
 {
     /**
@@ -19,32 +26,32 @@ trait ArrayHelperTrait
      */
     public function extractSelf (): \ArrayObject
     {
+        /** @noinspection NullPointerExceptionInspection */
         return $this->arrayHelper()->extract([$this]);
     }
 
     /**
-     * @param null|ArrayHelper $arrayHelper
-     * @return ArrayHelperTrait
+     * @param null|ArrayHelperContract $arrayHelper
      */
-    public function setArrayHelper(ArrayHelper $arrayHelper)
+    public function setArrayHelper(ArrayHelperContract $arrayHelper): void
     {
         $this->arrayHelper = $arrayHelper;
-        return $this;
     }
 
     /**
-     * @return null|ArrayHelper
+     * @return null|ArrayHelperContract
      */
-    public function getArrayHelper()
+    public function getArrayHelper():?ArrayHelperContract
     {
         return $this->arrayHelper;
     }
 
     /**
      * Gets existing array helper, or makes new one and then returns it
-     * @return null|ArrayHelper
+     *
+     * @return null|ArrayHelperContract
      */
-    public function arrayHelper():ArrayHelper {
+    public function arrayHelper():ArrayHelperContract {
         $arrayHelper = $this->getArrayHelper();
         if ($arrayHelper === NULL) {
             $arrayHelper = new ArrayHelper();

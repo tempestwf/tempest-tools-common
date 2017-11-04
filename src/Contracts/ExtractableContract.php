@@ -2,7 +2,11 @@
 
 namespace TempestTools\Common\Contracts;
 
-interface Extractable
+/**
+ * @link    https://github.com/tempestwf
+ * @author  William Tempest Wright Ferrer <https://github.com/tempestwf>
+ */
+interface ExtractableContract
 {
 
     /**
@@ -14,14 +18,13 @@ interface Extractable
     /**
      * setter
      * @param array $options
-     * @return Extractable
      */
-    public function setExtractorOptions(array $options) : Extractable;
+    public function setExtractorOptions(array $options);
 
     /**
      * getter
      * @return array
      */
-    public function getExtractorOptions():array;
+    public function getExtractorOptions():?array;
 
 }
