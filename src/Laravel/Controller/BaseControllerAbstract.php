@@ -5,8 +5,8 @@ namespace TempestTools\Common\Laravel\Controller;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Event;
 use TempestTools\Common\Contracts\HasArrayHelperContract;
-use TempestTools\Crud\Contracts\Controller\ControllerContract;
-use TempestTools\Crud\Laravel\Controllers\RestfulControllerTrait;
+use TempestTools\Scribe\Contracts\Controller\ControllerContract;
+use TempestTools\Scribe\Laravel\Controllers\RestfulControllerTrait;
 
 /**
  * A base controller class for Tempest Tools controllers

@@ -9,7 +9,7 @@
 namespace TempestTools\Common\Contracts;
 
 
-use TempestTools\AclMiddleware\Contracts\HasIdContract;
+use TempestTools\Moat\Contracts\HasIdContract;
 
 /**
  * @link    https://github.com/tempestwf

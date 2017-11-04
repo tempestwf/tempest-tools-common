@@ -12,7 +12,7 @@ namespace TempestTools\Common\Doctrine\Transformers;
 use Doctrine\Common\Collections\Collection;
 use Exception;
 use TempestTools\Common\Contracts\Doctrine\Transformers\SimpleTransformerContract;
-use TempestTools\Crud\Contracts\Orm\EntityContract;
+use TempestTools\Scribe\Contracts\Orm\EntityContract;
 use Doctrine\Common\Proxy\Proxy;
 
 
