@@ -66,11 +66,6 @@ class ArrayHelper implements ArrayHelperContract
      * @var string EXTENDED_KEY
      */
     const EXTENDED_KEY = 'extended';
-    /**
-     * The character to put at the beginning of a string to trigger automatic parsing.
-     * @var string TRIGGER_STRING_PARSE
-     */
-    const TRIGGER_STRING_PARSE = '?';
 
 
     /**
@@ -251,7 +246,7 @@ class ArrayHelper implements ArrayHelperContract
     /**
      * Replaces placeholder values wrapped in {{}} with the paths stored inside them.
      * For instance
-     * ?{{:key1:subKey1:subKey2}} would return "foo" from array:
+     * {{:key1:subKey1:subKey2}} would return "foo" from array:
      * [
      *  'key1' => [
      *      'subKey1' => [
