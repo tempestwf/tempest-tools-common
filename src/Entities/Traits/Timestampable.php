@@ -26,18 +26,16 @@ trait Timestampable
 {
 
     /**
-     *
-     *
      * @var \DateTime
      * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(type="datetime", type="datetime", nullable=true)
+     * @ORM\Column(name="created_at", type="datetime", type="datetime", nullable=true)
      */
     protected $createdAt;
 
     /**
      * @var \DateTime
      * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(type="datetime", type="datetime", nullable=true)
+     * @ORM\Column(name="updated_at", type="datetime", type="datetime", nullable=true)
      */
     protected $updatedAt;
 
