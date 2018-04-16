@@ -21,6 +21,6 @@ class SecureUniqueIdGenerator extends AbstractIdGenerator
 {
     public function generate(EntityManager $em, $entity): string
     {
-        return random_bytes(16);
+        return bin2hex(random_bytes(16));
     }
 }

@@ -70,7 +70,9 @@ class BasicDataExtractorMiddleware
         $extractList = [$laravelExtractor];
         if ($controller instanceof HasUserContract) {
             $user = $controller->getUser();
-            $extractList[] = $user;
+            if($user) {
+                $extractList[] = $user;
+            }
         } else {
             $user = null;
         }
