@@ -4,7 +4,6 @@ namespace TempestTools\Common\Laravel\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use App, Auth;
 use GuzzleHttp\Client;
 use Tymon\JWTAuth\Middleware\BaseMiddleware;
 /**
