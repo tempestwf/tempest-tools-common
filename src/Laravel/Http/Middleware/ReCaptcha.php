@@ -27,6 +27,11 @@ class ReCaptcha extends BaseMiddleware
         if (env('GOOGLE_RECAPTCHA_SECRET')) {
             $options = $request->input('options');
             if($options) {
+                if (array_key_exists('g-recaptcha-response-omit', $options)) {
+                    if ($options['g-recaptcha-response-omit'] === env('GOOGLE_RECAPTCHA_SKIP_CODE')) {
+                        return $next($request);
+                    }
+                }
                 if (array_key_exists('g-recaptcha-response', $options)) {
                     $client = new Client();
                     $response = $client->post('https://www.google.com/recaptcha/api/siteverify',
@@ -48,7 +53,7 @@ class ReCaptcha extends BaseMiddleware
                 }
             }
 
-            return $this->respond('tempesttools.recaptcha.absent', 'general_no_parameters', 400);
+            return $this->respond('tempesttools.recaptcha.absent', 'tempesttools_recaptcha_no_parameters', 400);
         } else {
             return $next($request);
         }
